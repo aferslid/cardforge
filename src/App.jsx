@@ -182,7 +182,7 @@ function App() {
     setShowImportDetails(false);
 
     try {
-      const response = await fetch("http://localhost:3001/extract", {
+      const response = await fetch("https://cardforge-production-611b.up.railway.app/extract", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -349,7 +349,7 @@ function App() {
   if (!sourceText.trim()) return;
 
   try {
-    const response = await fetch("http://localhost:3001/generate-cards", {
+    const response = await fetch("https://cardforge-production-611b.up.railway.app/generate-cards", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -414,7 +414,7 @@ async function handlePdfUpload(event) {
   try {
     formData.append("cardType", pdfCardType);
 
-    const response = await fetch("http://localhost:3001/pdf-extract", {
+    const response = await fetch("https://cardforge-production-611b.up.railway.app/pdf-extract", {
       method: "POST",
       body: formData,
     });
