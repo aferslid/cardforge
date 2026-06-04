@@ -1,0 +1,31 @@
+[phases.setup]
+nixPkgs = [
+  "nodejs_22",
+  "npm-10_x",
+  "glib",
+  "nss",
+  "nspr",
+  "atk",
+  "at-spi2-atk",
+  "cups",
+  "dbus",
+  "expat",
+  "libdrm",
+  "mesa",
+  "pango",
+  "cairo",
+  "alsa-lib",
+  "xorg.libX11",
+  "xorg.libXcomposite",
+  "xorg.libXdamage",
+  "xorg.libXext",
+  "xorg.libXfixes",
+  "xorg.libXrandr",
+  "xorg.libxcb"
+]
+
+[phases.install]
+cmds = ["cd server && npm install && npx playwright install chromium"]
+
+[start]
+cmd = "cd server && node index.js"
