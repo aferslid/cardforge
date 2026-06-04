@@ -28,4 +28,4 @@ nixPkgs = [
 cmds = ["cd server && npm install && npx playwright install chromium"]
 
 [start]
-cmd = "cd server && node index.js"
+cmd = "node server/index.js"
