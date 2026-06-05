@@ -449,3 +449,28 @@ h4 {
   padding: 6px 10px;
   background: #ef4444;
 }
+
+.quiz-actions {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.action-card {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 18px;
+  padding: 18px;
+  text-align: left;
+}
+
+.action-card strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.action-card span {
+  color: #94a3b8;
+  font-size: 14px;
+}

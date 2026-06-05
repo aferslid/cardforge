@@ -1309,39 +1309,33 @@ if (!session) {
             </p>
           </section>
 
-          <button className="primary" onClick={() => setScreen("review")}>
-            Réviser
-          </button>
-
-          <button 
-            className="secondary-card"
-            onClick={() => renameQuiz(selectedQuiz.id, selectedQuiz.name)}
-          >
-            Renommer le quiz
-          </button>
-
-          <button
-            className="danger"
-            onClick={() => deleteQuiz(selectedQuiz.id)}
-          >
-            Supprimer le quiz
-          </button>
-
           <section>
             <h2>Cartes</h2>
 
             {quizViewMode === "overview" && (
               <div className="quiz-actions">
-                <button onClick={() => setScreen("review")}>
-                  Réviser
+                <button
+                  className="action-card"
+                  onClick={() => setScreen("review")}
+                >
+                  <strong>🔥 Réviser</strong>
+                  <span>Commencer la session d'apprentissage</span>
                 </button>
 
-                <button onClick={() => setQuizViewMode("cards")}>
-                  Voir les cartes
+                <button
+                  className="action-card"
+                  onClick={() => setQuizViewMode("cards")}
+                >
+                  <strong>📖 Parcourir</strong>
+                  <span>Voir toutes les cartes du deck</span>
                 </button>
 
-                <button onClick={() => setQuizViewMode("edit")}>
-                  Modifier les cartes
+                <button
+                  className="action-card"
+                  onClick={() => setQuizViewMode("edit")}
+                >
+                  <strong>🛠 Modifier</strong>
+                  <span>Supprimer ou nettoyer les cartes</span>
                 </button>
               </div>
             )}
@@ -1391,6 +1385,25 @@ if (!session) {
                 </button>
               </div>
             ))}
+          </section>
+          <section className="panel">
+            <h3>Gestion du quiz</h3>
+
+            <button
+              className="secondary-card"
+              onClick={() =>
+                renameQuiz(selectedQuiz.id, selectedQuiz.name)
+              }
+            >
+              Renommer le quiz
+            </button>
+
+            <button
+              className="danger"
+              onClick={() => deleteQuiz(selectedQuiz.id)}
+            >
+              Supprimer le quiz
+            </button>
           </section>
         </main>
       )}
