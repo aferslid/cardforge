@@ -646,6 +646,7 @@ if (!session) {
           <button
             className="danger"
             onClick={async () => {
+              console.log("VERSION AVEC CONFIRMATION");
               if (
                 !window.confirm(
                   "Supprimer tous les projets, quiz et cartes ? Cette action est irréversible."
