@@ -743,23 +743,33 @@ if (!session) {
 
           <section>
             <h2>Mes projets</h2>
-            <div className="grid">
+            <div className="project-grid">
               {projects.map((project) => (
                 <button
                   key={project.id}
-                  className="project-tile"
+                  className="project-card"
                   onClick={() => openProject(project.id)}
                 >
-                  <>
-                    <div>
-                      <strong>{project.name}</strong>
-                      <span>
-                        {project.quizzes.length} quiz
+                  <div className="project-card-overlay">
+
+                    <div className="project-card-top">
+                      <div className="project-icon">🌍</div>
+                    </div>
+
+                    <div className="project-card-bottom">
+                      <h3>{project.name}</h3>
+
+                      <p>
+                        {project.quizzes.length} deck
+                        {project.quizzes.length > 1 ? "s" : ""}
+                      </p>
+
+                      <span className="continue-btn">
+                        Continuer →
                       </span>
                     </div>
 
-                    <span className="deck-arrow">→</span>
-                  </>
+                  </div>
                 </button>
               ))}
             </div>
