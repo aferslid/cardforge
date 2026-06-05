@@ -555,3 +555,57 @@ h4 {
   text-transform: uppercase;
   letter-spacing: .08em;
 }
+
+.quiz-hero-card {
+  background:
+    radial-gradient(circle at top left, rgba(99,102,241,.45), transparent 35%),
+    linear-gradient(135deg, rgba(15,23,42,.95), rgba(30,41,59,.85));
+  border: 1px solid rgba(148,163,184,.22);
+  border-radius: 30px;
+  padding: 28px 24px;
+  margin: 20px 0 24px;
+  box-shadow: 0 24px 70px rgba(0,0,0,.35);
+}
+
+.quiz-hero-card h1 {
+  margin: 8px 0 6px;
+  font-size: 38px;
+  line-height: 1;
+}
+
+.quiz-hero-card p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 16px;
+}
+
+.action-card {
+  background:
+    linear-gradient(135deg, rgba(30,41,59,.95), rgba(15,23,42,.95));
+  border: 1px solid rgba(148,163,184,.2);
+  border-radius: 22px;
+  padding: 20px;
+  text-align: left;
+  box-shadow: 0 14px 40px rgba(0,0,0,.22);
+}
+
+.action-card strong {
+  font-size: 22px;
+}
+
+.action-card span {
+  display: block;
+  margin-top: 6px;
+  color: #94a3b8;
+}
+
+.action-card:hover,
+.deck-card:hover,
+.project-tile:hover {
+  transform: translateY(-2px);
+  border-color: rgba(129,140,248,.55);
+}
+
+button {
+  transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}

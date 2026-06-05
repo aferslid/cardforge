@@ -1316,15 +1316,16 @@ if (!session) {
             ← Retour au projet
           </button>
 
-          <section className="hero small">
+          <section className="quiz-hero-card">
+            <span className="eyebrow">Deck</span>
             <h1>{selectedQuiz.name}</h1>
-            <p>
-              {selectedProject.name} · {selectedQuiz.cards.length} cartes
-            </p>
+            <p>{selectedProject.name} · {selectedQuiz.cards.length} cartes</p>
           </section>
 
           <section>
-            <h2>Cartes</h2>
+            <div className="section-header">
+              <h2>Que veux-tu faire ?</h2>
+            </div>
 
             {quizViewMode === "overview" && (
               <div className="quiz-actions">
