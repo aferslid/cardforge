@@ -46,9 +46,11 @@ app.post("/extract", async (req, res) => {
     });
 
     await page.goto(url, {
-      waitUntil: "networkidle",
-      timeout: 60000,
+    waitUntil: "domcontentloaded",
+    timeout: 60000,
     });
+
+    await page.waitForTimeout(5000);
 
     const title = await page.title();
 
