@@ -68,7 +68,13 @@ function App() {
     async function loadProjects() {
       const { data, error } = await supabase
         .from("projects")
-        .select("*")
+        .select(`
+          *,
+          quizzes (
+            *,
+            cards (*)
+          )
+        `)
         .eq("user_id", session.user.id)
         .order("created_at", { ascending: false });
 
@@ -81,7 +87,16 @@ function App() {
         data.map((project) => ({
           id: project.id,
           name: project.name,
-          quizzes: [],
+          quizzes: (project.quizzes || []).map((quiz) => ({
+            id: quiz.id,
+            name: quiz.title,
+            cards: (quiz.cards || []).map((card) => ({
+              id: card.id,
+              type: "quiz",
+              question: card.question,
+              answer: card.answer,
+            })),
+          })),
         }))
       );
     }
@@ -129,7 +144,7 @@ function App() {
     setNewProjectName("");
   }
 
-  function createQuizPlaceholder() {
+  async function createQuizPlaceholder() {
     if (!selectedProject) return;
 
     if (!newQuizName.trim()) {
@@ -138,6 +153,7 @@ function App() {
     }
 
     setQuizNameError("");
+    if (!session?.user) return;
 
     let cards = [];
 
@@ -156,14 +172,45 @@ function App() {
       ];
     }
 
+    const { data, error } = await supabase
+      .from("quizzes")
+      .insert({
+        project_id: selectedProject.id,
+        user_id: session.user.id,
+        title: newQuizName.trim(),
+      })
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Erreur création quiz:", error);
+      return;
+    }
+
     const newQuiz = {
-      id: Date.now(),
-      name: newQuizName.trim(),
+      id: data.id,
+      name: data.title,
       sourceMode,
       sourceText,
       url,
       cards,
     };
+
+    if (cards.length > 0) {
+      const cardsToInsert = cards.map((card) => ({
+        quiz_id: data.id,
+        question: card.question || card.title || "",
+        answer: card.answer || card.content || "",
+      }));
+
+      const { error: cardsError } = await supabase
+        .from("cards")
+        .insert(cardsToInsert);
+
+      if (cardsError) {
+        console.error("Erreur création cartes:", cardsError);
+      }
+    }
 
     const updatedProjects = projects.map((project) => {
       if (project.id !== selectedProject.id) return project;
@@ -372,12 +419,22 @@ function App() {
     goHome();
   }
 
-  function deleteQuiz(quizId) {
+  async function deleteQuiz(quizId) {
     if (
       !window.confirm(
         "Supprimer ce quiz et toutes ses cartes ?"
       )
     ) {
+      return;
+    }
+
+    const { error } = await supabase
+      .from("quizzes")
+      .delete()
+      .eq("id", quizId);
+
+    if (error) {
+      console.error("Erreur suppression quiz:", error);
       return;
     }
 
