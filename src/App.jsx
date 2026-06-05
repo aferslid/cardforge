@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import { supabase } from "./supabaseClient";
+import AuthComponent from "./Auth";
 
 const initialProjects = [];
 
 function App() {
-  const [projects, setProjects] = useState(() => {
-    const saved = localStorage.getItem("cardforge-projects");
-    return saved ? JSON.parse(saved) : initialProjects;
-  });
+  const [projects, setProjects] = useState([]);
   const [screen, setScreen] = useState("home");
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [selectedQuizId, setSelectedQuizId] = useState(null);
@@ -47,9 +46,48 @@ function App() {
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
   const selectedQuiz = selectedProject?.quizzes.find((q) => q.id === selectedQuizId);
 
+  const [session, setSession] = useState(null);
+
   useEffect(() => {
-    localStorage.setItem("cardforge-projects", JSON.stringify(projects));
-  }, [projects]);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (!session?.user) return;
+
+    async function loadProjects() {
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .eq("user_id", session.user.id)
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Erreur chargement projets:", error);
+        return;
+      }
+
+      setProjects(
+        data.map((project) => ({
+          id: project.id,
+          name: project.name,
+          quizzes: [],
+        }))
+      );
+    }
+
+    loadProjects();
+  }, [session]);
 
   function goHome() {
     setScreen("home");
@@ -63,18 +101,32 @@ function App() {
     setScreen("project");
   }
 
-  function createProject() {
+  async function createProject() {
     if (!newProjectName.trim()) return;
+    if (!session?.user) return;
+
+    const { data, error } = await supabase
+      .from("projects")
+      .insert({
+        name: newProjectName.trim(),
+        user_id: session.user.id,
+      })
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Erreur création projet:", error);
+      return;
+    }
 
     const newProject = {
-      id: Date.now(),
-      name: newProjectName.trim(),
+      id: data.id,
+      name: data.name,
       quizzes: [],
     };
 
     setProjects([newProject, ...projects]);
     setNewProjectName("");
-    openProject(newProject.id);
   }
 
   function createQuizPlaceholder() {
@@ -453,6 +505,10 @@ function addHighlightCard() {
 
   setManualCards((prev) => [newCard, ...prev]);
   setSelectedHighlight("");
+}
+
+if (!session) {
+  return <AuthComponent />;
 }
 
 
@@ -1092,7 +1148,6 @@ function ReviewScreen({ quiz, onBack }) {
     setShowAnswer(false);
     setIndex((prev) => (prev + 1 >= quiz.cards.length ? 0 : prev + 1));
   }
-
 
   return (
     <main>
