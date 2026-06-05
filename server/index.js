@@ -45,12 +45,16 @@ app.post("/extract", async (req, res) => {
       viewport: { width: 1280, height: 900 },
     });
 
+    try {
     await page.goto(url, {
-    waitUntil: "domcontentloaded",
-    timeout: 60000,
+        waitUntil: "domcontentloaded",
+        timeout: 30000,
     });
+    } catch (error) {
+    console.log("GOTO WARNING:", error.message);
+    }
 
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(8000);
 
     const title = await page.title();
 
