@@ -357,9 +357,25 @@ function App() {
     }));
 
     if (cardsToInsert.length > 0) {
-      const { error: cardsError } = await supabase
+      const { data: insertedCards, error: cardsError } = await supabase
         .from("cards")
-        .insert(cardsToInsert);
+        .insert(cardsToInsert)
+        .select();
+
+      if (cardsError) {
+        console.error("Erreur création cartes:", cardsError);
+        return;
+      }
+
+      const savedCards = insertedCards.map((card) => ({
+        id: card.id,
+        type: card.type || "info",
+        title: card.title || "",
+        question: card.question || "",
+        answer: card.answer || "",
+        content: card.content || card.answer || "",
+        image: card.image || "",
+      }));
 
       if (cardsError) {
         console.error("Erreur création cartes:", cardsError);
@@ -372,7 +388,7 @@ function App() {
       name: quizData.title,
       sourceMode: "url",
       url,
-      cards,
+      cards: savedCards,
     };
 
     const updatedProjects = projects.map((project) => {
