@@ -162,14 +162,8 @@ function App() {
     }
 
     if (cards.length === 0) {
-      cards = [
-        {
-          id: Date.now(),
-          type: "info",
-          title: "",
-          content: "Carte exemple",
-        },
-      ];
+      alert("Ajoute au moins une carte avant de créer le quiz.");
+      return;
     }
 
     const { data, error } = await supabase
@@ -318,7 +312,8 @@ function App() {
     const cards = extractedPage.cardCandidates
       .filter((card) => card.content)
       .filter((card) => card.content.length < 700)
-      .map((card) => ({
+      .map((card, index) => ({
+        id: Date.now() + index,
         type: extractedPage.importType === "gallery" ? "quiz" : "info",
         title: "",
         question: "",
