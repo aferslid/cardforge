@@ -707,10 +707,7 @@ if (!session) {
 
   return (
     <div className="app">
-      <header className="topbar">
-        <button className="ghost" onClick={goHome}>CardForge</button>
-      </header>
-
+      
       {screen === "home" && (
         <main>
           <section className="home-hero">
@@ -721,7 +718,7 @@ if (!session) {
             <h1>Your worlds</h1>
 
             <p>
-              Reprends là où tu t'étais arrêté.
+              Pick up where you left off
             </p>
           </section>
 
