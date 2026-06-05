@@ -784,56 +784,70 @@ if (!session) {
         <main>
           <button className="back" onClick={goHome}>← Tous les projets</button>
 
-          <section className="hero small">
-            <h1>{selectedProject.name}</h1>
-            <p>{selectedProject.quizzes.length} quiz dans ce projet.</p>
-            <button
-              className="secondary-card"
-              onClick={() => renameProject(selectedProject.id, selectedProject.name)}
-            >
-              Renommer le projet
-            </button>
-            <button
-              className="danger"
-              onClick={() => deleteProject(selectedProject.id)}
-            >
-              Supprimer le projet
-            </button>
+          <section className="project-hero-card">
+            <div>
+              <span className="eyebrow">Projet</span>
+              <h1>{selectedProject.name}</h1>
+              <p>
+                {selectedProject.quizzes.length} quiz ·{" "}
+                {selectedProject.quizzes.reduce(
+                  (total, quiz) => total + quiz.cards.length,
+                  0
+                )} cartes
+              </p>
+            </div>
           </section>
 
-          <button className="primary" onClick={() => setScreen("createQuiz")}>
-            + Créer un quiz
+          <button className="primary create-main" onClick={() => setScreen("createQuiz")}>
+            + Nouveau quiz
           </button>
 
-          <section>
-            <h2>Quiz</h2>
+          <section className="section-block">
+            <div className="section-header">
+              <h2>Mes decks</h2>
+            </div>
 
             {selectedProject.quizzes.length === 0 && (
               <p className="muted">Aucun quiz pour l’instant.</p>
             )}
 
-            {selectedProject.quizzes.map((quiz) => (
-              <div key={quiz.id} className="quiz-row-wrapper">
+            <div className="deck-list">
+              {selectedProject.quizzes.map((quiz) => (
                 <button
-                  className="quiz-row"
+                  key={quiz.id}
+                  className="deck-card"
                   onClick={() => {
                     setSelectedQuizId(quiz.id);
                     setQuizViewMode("overview");
                     setScreen("quiz");
                   }}
                 >
-                  <span>{quiz.name}</span>
-                  <small>{quiz.cards.length} cartes</small>
+                  <div>
+                    <strong>{quiz.name}</strong>
+                    <span>{quiz.cards.length} cartes</span>
+                  </div>
+                  <span className="deck-arrow">→</span>
                 </button>
+              ))}
+            </div>
+          </section>
 
-                <button
-                  className="delete-quiz-small"
-                  onClick={() => deleteQuiz(quiz.id)}
-                >
-                  Supprimer
-                </button>
-              </div>
-            ))}
+          <section className="management-panel">
+            <h3>Gestion du projet</h3>
+
+            <button
+              className="secondary-card"
+              onClick={() => renameProject(selectedProject.id, selectedProject.name)}
+            >
+              Renommer le projet
+            </button>
+
+            <button
+              className="danger"
+              onClick={() => deleteProject(selectedProject.id)}
+            >
+              Supprimer le projet
+            </button>
           </section>
         </main>
       )}
