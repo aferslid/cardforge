@@ -645,9 +645,29 @@ if (!session) {
 
           <button
             className="danger"
-            onClick={() => {
-              localStorage.removeItem("cardforge-projects");
+            onClick={async () => {
+              if (
+                !window.confirm(
+                  "Supprimer tous les projets, quiz et cartes ? Cette action est irréversible."
+                )
+              ) {
+                return;
+              }
+
+              const { error } = await supabase
+                .from("projects")
+                .delete()
+                .eq("user_id", session.user.id);
+
+              if (error) {
+                console.error("Erreur reset projets :", error);
+                return;
+              }
+
               setProjects([]);
+              setSelectedProjectId(null);
+              setSelectedQuizId(null);
+              setScreen("home");
             }}
           >
             Reset projets
