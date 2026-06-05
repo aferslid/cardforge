@@ -819,22 +819,26 @@ if (!session) {
               <p className="muted">Aucun quiz pour l’instant.</p>
             )}
 
-            <div className="deck-list">
+            <div className="deck-grid">
               {selectedProject.quizzes.map((quiz) => (
                 <button
                   key={quiz.id}
-                  className="deck-card"
+                  className="deck-grid-card"
                   onClick={() => {
                     setSelectedQuizId(quiz.id);
                     setQuizViewMode("overview");
                     setScreen("quiz");
                   }}
                 >
-                  <div>
-                    <strong>{quiz.name}</strong>
-                    <span>{quiz.cards.length} cartes</span>
+                  <div className="deck-grid-overlay">
+                    <h3>{quiz.name}</h3>
+
+                    <span>
+                      {quiz.cards.length} cartes
+                    </span>
+
+                    <div className="deck-progress" />
                   </div>
-                  <span className="deck-arrow">→</span>
                 </button>
               ))}
             </div>
