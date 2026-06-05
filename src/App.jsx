@@ -42,6 +42,7 @@ function App() {
   const [highlightText, setHighlightText] = useState("");
   const [selectedHighlight, setSelectedHighlight] = useState("");
   const [quizNameError, setQuizNameError] = useState("");
+  const [quizViewMode, setQuizViewMode] = useState("overview");
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
   const selectedQuiz = selectedProject?.quizzes.find((q) => q.id === selectedQuizId);
@@ -704,6 +705,7 @@ if (!session) {
                   className="quiz-row"
                   onClick={() => {
                     setSelectedQuizId(quiz.id);
+                    setQuizViewMode("overview");
                     setScreen("quiz");
                   }}
                 >
@@ -1207,7 +1209,43 @@ if (!session) {
 
           <section>
             <h2>Cartes</h2>
-            {selectedQuiz.cards.map((card) => (
+
+            {quizViewMode === "overview" && (
+              <div className="quiz-actions">
+                <button onClick={() => setScreen("review")}>
+                  Réviser
+                </button>
+
+                <button onClick={() => setQuizViewMode("cards")}>
+                  Voir les cartes
+                </button>
+
+                <button onClick={() => setQuizViewMode("edit")}>
+                  Modifier les cartes
+                </button>
+              </div>
+            )}
+
+            {quizViewMode !== "overview" && (
+              <button onClick={() => setQuizViewMode("overview")}>
+                ← Retour
+              </button>
+            )}
+
+            {quizViewMode === "cards" && selectedQuiz.cards.map((card) => (
+              <div key={card.id} className="card-row">
+                {card.image && (
+                  <img className="card-image" src={card.image} alt="" />
+                )}
+
+                {card.title && <strong>{card.title}</strong>}
+                {card.content && <span>{card.content}</span>}
+                {card.question && <strong>{card.question}</strong>}
+                {card.answer && <span>{card.answer}</span>}
+              </div>
+            ))}
+
+            {quizViewMode === "edit" && selectedQuiz.cards.map((card) => (
               <div key={card.id} className="card-row">
                 {card.image && (
                   <img className="card-image" src={card.image} alt="" />
