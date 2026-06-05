@@ -491,6 +491,30 @@ function App() {
     goHome();
   }
 
+  async function renameProject(projectId, currentName) {
+    const newName = window.prompt("Nouveau nom du projet :", currentName);
+
+    if (!newName || !newName.trim()) return;
+
+    const { error } = await supabase
+      .from("projects")
+      .update({ name: newName.trim() })
+      .eq("id", projectId);
+
+    if (error) {
+      console.error("Erreur renommage projet:", error);
+      return;
+    }
+
+    setProjects(
+      projects.map((project) =>
+        project.id === projectId
+          ? { ...project, name: newName.trim() }
+          : project
+      )
+    );
+  }
+
   async function deleteQuiz(quizId) {
     if (
       !window.confirm(
@@ -723,6 +747,12 @@ if (!session) {
           <section className="hero small">
             <h1>{selectedProject.name}</h1>
             <p>{selectedProject.quizzes.length} quiz dans ce projet.</p>
+            <button
+              className="secondary-card"
+              onClick={() => renameProject(selectedProject.id, selectedProject.name)}
+            >
+              Renommer le projet
+            </button>
             <button
               className="danger"
               onClick={() => deleteProject(selectedProject.id)}
