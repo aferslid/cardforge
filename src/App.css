@@ -801,16 +801,33 @@ button {
 }
 
 .project-card.clean {
-  min-height: 230px;
+  min-height: 280px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 28px;
   background:
-    radial-gradient(circle at top left, rgba(124,109,255,.35), transparent 35%),
-    linear-gradient(135deg, #171d33, #0e1325);
+    linear-gradient(180deg, rgba(5,8,22,.05), rgba(5,8,22,.85)),
+    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee");
+  background-size: cover;
+  background-position: center;
 }
 
 .project-card.clean .project-card-header {
-  align-items: flex-start;
+  padding: 22px;
 }
 
-.project-card.clean .project-icon {
-  background: rgba(124,109,255,.18);
+.project-card.clean .last-deck-card {
+  margin: 0 14px 14px;
+}
+
+.last-deck-card {
+  margin-top: auto;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(14, 19, 37, .82);
+  backdrop-filter: blur(14px);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
