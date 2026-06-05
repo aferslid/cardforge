@@ -611,18 +611,59 @@ function App() {
       return;
     }
 
-    const cards = data.cards.map((card, index) => ({
-      id: Date.now() + index,
+    const quizTitle = newQuizName.trim() || "AI Deck";
+
+    const { data: quizData, error: quizError } = await supabase
+      .from("quizzes")
+      .insert({
+        project_id: selectedProject.id,
+        user_id: session.user.id,
+        title: quizTitle,
+      })
+      .select()
+      .single();
+
+    if (quizError) {
+      console.error("Erreur création quiz IA:", quizError);
+      return;
+    }
+
+    const cardsToInsert = data.cards.map((card) => ({
+      quiz_id: quizData.id,
       type: "quiz",
-      question: card.question,
-      answer: card.answer,
+      title: "",
+      question: card.question || "",
+      answer: card.answer || "",
+      content: "",
+      image: "",
+    }));
+
+    const { data: insertedCards, error: cardsError } = await supabase
+      .from("cards")
+      .insert(cardsToInsert)
+      .select();
+
+    if (cardsError) {
+      console.error("Erreur création cartes IA:", cardsError);
+      return;
+    }
+
+    const savedCards = insertedCards.map((card) => ({
+      id: card.id,
+      type: card.type || "quiz",
+      title: card.title || "",
+      question: card.question || "",
+      answer: card.answer || "",
+      content: card.content || "",
+      image: card.image || "",
     }));
 
     const newQuiz = {
-      id: Date.now(),
-      name: newQuizName.trim() || "AI Deck",
+      id: quizData.id,
+      name: quizData.title,
+      title: quizData.title,
       sourceMode: "ai",
-      cards,
+      cards: savedCards,
     };
 
     const updatedProjects = projects.map((project) => {
@@ -638,6 +679,7 @@ function App() {
     setSelectedQuizId(newQuiz.id);
     setSourceText("");
     setNewQuizName("");
+    setQuizViewMode("overview");
     setScreen("quiz");
 
   } catch (error) {
