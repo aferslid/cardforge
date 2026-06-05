@@ -281,11 +281,14 @@ button {
 }
 
 .card-image {
+  display: block;
   width: 100%;
-  max-height: 180px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 12px;
+  max-width: 700px;
+  max-height: 350px;
+  object-fit: contain;
+  background: #0f172a;
+  border-radius: 16px;
+  margin: 0 auto 16px;
 }
 
 .review-image {
@@ -608,4 +611,32 @@ h4 {
 
 button {
   transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.home-hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(99,102,241,.15);
+  border: 1px solid rgba(99,102,241,.35);
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.home-hero h1 {
+  font-size: 46px;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.home-hero p {
+  max-width: 650px;
+  margin: 0 auto;
+  color: #94a3b8;
+  font-size: 18px;
 }

@@ -713,9 +713,20 @@ if (!session) {
 
       {screen === "home" && (
         <main>
-          <section className="hero">
-            <h1>Transforme ce que tu veux apprendre en cartes.</h1>
-            <p>Projets, quiz, sources web, IA, cartes image ou texte.</p>
+          <section className="home-hero">
+            <div className="hero-badge">
+              🧠 CardForge
+            </div>
+
+            <h1>
+              Apprends plus vite avec
+              des cartes intelligentes.
+            </h1>
+
+            <p>
+              Transforme un article, un PDF,
+              une image ou un texte en deck révisable.
+            </p>
           </section>
 
           <section className="panel">
@@ -739,8 +750,16 @@ if (!session) {
                   className="project-tile"
                   onClick={() => openProject(project.id)}
                 >
-                  <strong>{project.name}</strong>
-                  <span>{project.quizzes.length} quiz</span>
+                  <>
+                    <div>
+                      <strong>{project.name}</strong>
+                      <span>
+                        {project.quizzes.length} quiz
+                      </span>
+                    </div>
+
+                    <span className="deck-arrow">→</span>
+                  </>
                 </button>
               ))}
             </div>
