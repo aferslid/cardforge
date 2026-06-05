@@ -550,6 +550,33 @@ function App() {
     setSelectedQuizId(null);
   }
 
+  async function renameQuiz(quizId, currentName) {
+    const newName = window.prompt("Nouveau nom du quiz :", currentName);
+
+    if (!newName || !newName.trim()) return;
+
+    const { error } = await supabase
+      .from("quizzes")
+      .update({ title: newName.trim() })
+      .eq("id", quizId);
+
+    if (error) {
+      console.error("Erreur renommage quiz:", error);
+      return;
+    }
+
+    setProjects(
+      projects.map((project) => ({
+        ...project,
+        quizzes: project.quizzes.map((quiz) =>
+          quiz.id === quizId
+            ? { ...quiz, name: newName.trim() }
+            : quiz
+        ),
+      }))
+    );
+  }
+
   async function generateWithAI() {
   if (!sourceText.trim()) return;
 
@@ -784,6 +811,13 @@ if (!session) {
                 >
                   <span>{quiz.name}</span>
                   <small>{quiz.cards.length} cartes</small>
+                </button>
+
+                <button
+                  className="secondary-card"
+                  onClick={() => renameQuiz(selectedQuiz.id, selectedQuiz.name)}
+                >
+                  Renommer le quiz
                 </button>
 
                 <button
