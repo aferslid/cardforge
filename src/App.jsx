@@ -721,34 +721,44 @@ if (!session) {
           <section>
             <h2>Continuer l'apprentissage</h2>
             <div className="project-grid">
-              {projects.map((project) => (
-                <button
-                  key={project.id}
-                  className="project-card"
-                  onClick={() => openProject(project.id)}
-                >
-                  <div className="project-card-overlay">
+              {projects.map((project) => {
+                const lastQuiz = project.quizzes?.[0];
+                const totalCards = project.quizzes.reduce(
+                  (total, quiz) => total + (quiz.cards?.length || 0),
+                  0
+                );
 
-                    <div className="project-card-top">
+                return (
+                  <button
+                    key={project.id}
+                    className="project-card clean"
+                    onClick={() => openProject(project.id)}
+                  >
+                    <div className="project-card-header">
                       <div className="project-icon">🌍</div>
+
+                      <div>
+                        <h3>{project.name}</h3>
+                        <p>
+                          {project.quizzes.length} deck
+                          {project.quizzes.length > 1 ? "s" : ""} · {totalCards} cartes
+                        </p>
+                      </div>
                     </div>
 
-                    <div className="project-card-bottom">
-                      <h3>{project.name}</h3>
+                    {lastQuiz && (
+                      <div className="last-deck-card">
+                        <div>
+                          <strong>{lastQuiz.name}</strong>
+                          <span>{lastQuiz.cards?.length || 0} cartes</span>
+                        </div>
 
-                      <p>
-                        {project.quizzes.length} deck
-                        {project.quizzes.length > 1 ? "s" : ""}
-                      </p>
-
-                      <span className="continue-btn">
-                        Continuer →
-                      </span>
-                    </div>
-
-                  </div>
-                </button>
-              ))}
+                        <span className="continue-pill">Continue →</span>
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </section>
 

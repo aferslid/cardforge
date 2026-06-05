@@ -799,3 +799,18 @@ button {
   border-radius: 999px;
   background: #7c6dff;
 }
+
+.project-card.clean {
+  min-height: 230px;
+  background:
+    radial-gradient(circle at top left, rgba(124,109,255,.35), transparent 35%),
+    linear-gradient(135deg, #171d33, #0e1325);
+}
+
+.project-card.clean .project-card-header {
+  align-items: flex-start;
+}
+
+.project-card.clean .project-icon {
+  background: rgba(124,109,255,.18);
+}
