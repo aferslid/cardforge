@@ -303,7 +303,7 @@ function App() {
     }
   }
 
-  function createQuizFromCandidates() {
+  async function createQuizFromCandidates() {
     if (!selectedProject || !extractedPage?.cardCandidates) return;
 
     if (!newQuizName.trim()) {
@@ -311,24 +311,57 @@ function App() {
       return;
     }
 
+    if (!session?.user) return;
+
     setQuizNameError("");
 
     const cards = extractedPage.cardCandidates
-      .filter((card) => card.image && card.content)
+      .filter((card) => card.content)
       .filter((card) => card.content.length < 700)
-      .map((card, index) => ({
-        id: Date.now() + index,
+      .map((card) => ({
         type: extractedPage.importType === "gallery" ? "quiz" : "info",
         title: "",
         question: "",
         answer: card.content,
         content: card.content,
-        image: card.image,
+        image: card.image || "",
       }));
 
+    const { data: quizData, error: quizError } = await supabase
+      .from("quizzes")
+      .insert({
+        project_id: selectedProject.id,
+        user_id: session.user.id,
+        title: newQuizName.trim(),
+      })
+      .select()
+      .single();
+
+    if (quizError) {
+      console.error("Erreur création quiz:", quizError);
+      return;
+    }
+
+    const cardsToInsert = cards.map((card) => ({
+      quiz_id: quizData.id,
+      question: card.question || card.title || "",
+      answer: card.answer || card.content || "",
+    }));
+
+    if (cardsToInsert.length > 0) {
+      const { error: cardsError } = await supabase
+        .from("cards")
+        .insert(cardsToInsert);
+
+      if (cardsError) {
+        console.error("Erreur création cartes:", cardsError);
+        return;
+      }
+    }
+
     const newQuiz = {
-      id: Date.now(),
-      name: newQuizName.trim(),
+      id: quizData.id,
+      name: quizData.title,
       sourceMode: "url",
       url,
       cards,
