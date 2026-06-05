@@ -356,6 +356,8 @@ function App() {
       image: card.image || "",
     }));
 
+    let savedCards = [];
+
     if (cardsToInsert.length > 0) {
       const { data: insertedCards, error: cardsError } = await supabase
         .from("cards")
@@ -367,7 +369,7 @@ function App() {
         return;
       }
 
-      const savedCards = insertedCards.map((card) => ({
+      savedCards = insertedCards.map((card) => ({
         id: card.id,
         type: card.type || "info",
         title: card.title || "",
@@ -376,11 +378,6 @@ function App() {
         content: card.content || card.answer || "",
         image: card.image || "",
       }));
-
-      if (cardsError) {
-        console.error("Erreur création cartes:", cardsError);
-        return;
-      }
     }
 
     const newQuiz = {
