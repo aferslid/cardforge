@@ -725,28 +725,24 @@ button {
   font-weight: 600;
 }
 
-.floating-add{
+.floating-add {
   position: fixed;
-  right: 24px;
-  bottom: 24px;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(180px);
 
-  width: 72px;
-  height: 72px;
-
+  width: 68px;
+  height: 68px;
   border-radius: 999px;
-
   border: none;
 
   background: #7c6dff;
   color: white;
 
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 700;
-
   cursor: pointer;
 
   z-index: 9999;
-
-  box-shadow:
-    0 12px 40px rgba(124,109,255,.45);
+  box-shadow: 0 10px 40px rgba(124, 109, 255, .45);
 }
