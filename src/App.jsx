@@ -385,6 +385,7 @@ function App() {
     setNewQuizName("");
     setUrl("");
     setExtractedPage(null);
+    setQuizViewMode("edit");
     setScreen("quiz");
   }
 
