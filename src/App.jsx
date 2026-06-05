@@ -718,31 +718,15 @@ if (!session) {
               🧠 CardForge
             </div>
 
-            <h1>
-              Apprends plus vite avec
-              des cartes intelligentes.
-            </h1>
+            <h1>Your worlds</h1>
 
             <p>
-              Transforme un article, un PDF,
-              une image ou un texte en deck révisable.
+              Reprends là où tu t'étais arrêté.
             </p>
           </section>
 
-          <section className="panel">
-            <h2>Nouveau projet</h2>
-            <input
-              placeholder="Ex : Russe, GeoGuessr, Tendinite..."
-              value={newProjectName}
-              onChange={(e) => setNewProjectName(e.target.value)}
-            />
-            <button className="primary" onClick={createProject}>
-              Créer le projet
-            </button>
-          </section>
-
           <section>
-            <h2>Mes projets</h2>
+            <h2>Continuer l'apprentissage</h2>
             <div className="project-grid">
               {projects.map((project) => (
                 <button
@@ -804,6 +788,22 @@ if (!session) {
             }}
           >
             Reset projets
+          </button>
+
+          <button
+            className="floating-add"
+            onClick={() => {
+              const name = prompt("Nom du projet ?");
+              if (!name) return;
+
+              setNewProjectName(name);
+
+              setTimeout(() => {
+                createProject();
+              }, 50);
+            }}
+          >
+            +
           </button>
 
         </main>

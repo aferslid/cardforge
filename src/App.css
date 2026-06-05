@@ -724,3 +724,31 @@ button {
   color: white;
   font-weight: 600;
 }
+
+.floating-add {
+  position: fixed;
+
+  right: 24px;
+  bottom: 24px;
+
+  width: 68px;
+  height: 68px;
+
+  border-radius: 50%;
+
+  border: none;
+
+  background: #7c6dff;
+
+  color: white;
+
+  font-size: 34px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 30px rgba(124,109,255,.35);
+
+  z-index: 100;
+}
