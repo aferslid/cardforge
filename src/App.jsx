@@ -814,13 +814,6 @@ if (!session) {
                 </button>
 
                 <button
-                  className="secondary-card"
-                  onClick={() => renameQuiz(selectedQuiz.id, selectedQuiz.name)}
-                >
-                  Renommer le quiz
-                </button>
-
-                <button
                   className="delete-quiz-small"
                   onClick={() => deleteQuiz(quiz.id)}
                 >
@@ -1305,6 +1298,13 @@ if (!session) {
 
           <button className="primary" onClick={() => setScreen("review")}>
             Réviser
+          </button>
+
+          <button 
+            className="secondary-card"
+            onClick={() => renameQuiz(selectedQuiz.id, selectedQuiz.name)}
+          >
+            Renommer le quiz
           </button>
 
           <button
