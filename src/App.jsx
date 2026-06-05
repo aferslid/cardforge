@@ -93,9 +93,12 @@ function App() {
             name: quiz.title,
             cards: (quiz.cards || []).map((card) => ({
               id: card.id,
-              type: "quiz",
-              question: card.question,
-              answer: card.answer,
+              type: card.type || "info",
+              title: card.title || "",
+              question: card.question || "",
+              answer: card.answer || "",
+              content: card.content || card.answer || "",
+              image: card.image || "",
             })),
           })),
         }))
@@ -340,8 +343,12 @@ function App() {
 
     const cardsToInsert = cards.map((card) => ({
       quiz_id: quizData.id,
-      question: card.question || card.title || "",
-      answer: card.answer || card.content || "",
+      type: card.type,
+      title: card.title || "",
+      question: card.question || "",
+      answer: card.answer || "",
+      content: card.content || "",
+      image: card.image || "",
     }));
 
     if (cardsToInsert.length > 0) {
