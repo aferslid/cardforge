@@ -749,7 +749,7 @@ if (!session) {
                     {lastQuiz && (
                       <div className="last-deck-card">
                         <div>
-                          <strong>{lastQuiz.name}</strong>
+                          <strong>{lastQuiz.name} </strong>
                           <span>{lastQuiz.cards?.length || 0} cartes</span>
                         </div>
 

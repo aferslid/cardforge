@@ -837,3 +837,33 @@ button {
   justify-content: space-between;
   align-items: center;
 }
+
+.last-deck-card > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.last-deck-card strong {
+  display: block;
+  color: white;
+  font-size: 15px;
+  line-height: 1.1;
+}
+
+.last-deck-card span {
+  display: block;
+  color: #a7b0c2;
+  font-size: 13px;
+}
+
+.continue-pill {
+  white-space: nowrap;
+  color: white !important;
+  background: #7c6dff;
+  padding: 9px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
