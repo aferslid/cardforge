@@ -711,15 +711,11 @@ if (!session) {
       {screen === "home" && (
         <main>
           <section className="home-hero">
-            <div className="hero-badge">
-              🧠 CardForge
-            </div>
+            <h1>CardForge</h1>
 
-            <h1>Your worlds</h1>
+            <h2>Your worlds</h2>
 
-            <p>
-              Pick up where you left off
-            </p>
+            <p>Pick up where you left off</p>
           </section>
 
           <section>
@@ -758,15 +754,32 @@ if (!session) {
 
           <button
             className="floating-add"
-            onClick={() => {
+            onClick={async () => {
               const name = prompt("Nom du projet ?");
-              if (!name) return;
+              if (!name || !name.trim()) return;
 
-              setNewProjectName(name);
+              const { data, error } = await supabase
+                .from("projects")
+                .insert({
+                  name: name.trim(),
+                  user_id: session.user.id,
+                })
+                .select()
+                .single();
 
-              setTimeout(() => {
-                createProject();
-              }, 50);
+              if (error) {
+                console.error("Erreur création projet:", error);
+                return;
+              }
+
+              setProjects([
+                {
+                  id: data.id,
+                  name: data.name,
+                  quizzes: [],
+                },
+                ...projects,
+              ]);
             }}
           >
             +

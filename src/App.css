@@ -615,7 +615,7 @@ button {
 
 .home-hero {
   text-align: left;
-  margin-bottom: 34px;
+  margin-bottom: 28px;
 }
 
 .hero-badge {
@@ -629,16 +629,19 @@ button {
 }
 
 .home-hero h1 {
-  font-size: 48px;
-  line-height: 1;
-  margin-bottom: 10px;
+  font-size: 28px;
+  margin: 0 0 36px;
+}
+
+.home-hero h2 {
+  font-size: 24px;
+  margin: 0 0 4px;
 }
 
 .home-hero p {
-  max-width: 650px;
   margin: 0;
   color: #94a3b8;
-  font-size: 17px;
+  font-size: 15px;
 }
 
 .project-grid {
