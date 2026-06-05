@@ -583,7 +583,7 @@ function App() {
         ...project,
         quizzes: project.quizzes.map((quiz) =>
           quiz.id === quizId
-            ? { ...quiz, name: newName.trim() }
+            ? { ...quiz, name: newName.trim(), title: newName.trim() }
             : quiz
         ),
       }))
@@ -1429,7 +1429,7 @@ if (!session) {
             <button
               className="secondary-card"
               onClick={() =>
-                renameQuiz(selectedQuiz.id, selectedQuiz.name)
+                renameQuiz(selectedQuiz.id, selectedQuiz.name || selectedQuiz.title)
               }
             >
               Renommer le quiz
