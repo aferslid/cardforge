@@ -197,8 +197,12 @@ function App() {
     if (cards.length > 0) {
       const cardsToInsert = cards.map((card) => ({
         quiz_id: data.id,
-        question: card.question || card.title || "",
-        answer: card.answer || card.content || "",
+        type: card.type || "info",
+        title: card.title || "",
+        question: card.question || "",
+        answer: card.answer || "",
+        content: card.content || card.answer || "",
+        image: card.image || "",
       }));
 
       const { error: cardsError } = await supabase
@@ -389,7 +393,17 @@ function App() {
     setScreen("quiz");
   }
 
-  function deleteCard(cardId) {
+  async function deleteCard(cardId) {
+    const { error } = await supabase
+      .from("cards")
+      .delete()
+      .eq("id", cardId);
+
+    if (error) {
+      console.error("Erreur suppression carte:", error);
+      return;
+    }
+
     const updatedProjects = projects.map((project) => {
       if (project.id !== selectedProjectId) return project;
 
@@ -409,7 +423,22 @@ function App() {
     setProjects(updatedProjects);
   }
 
-  function clearCardText(cardId) {
+  async function clearCardText(cardId) {
+    const { error } = await supabase
+      .from("cards")
+      .update({
+        title: "",
+        content: "",
+        question: "",
+        answer: "",
+      })
+      .eq("id", cardId);
+
+    if (error) {
+      console.error("Erreur vider texte carte:", error);
+      return;
+    }
+
     const updatedProjects = projects.map((project) => {
       if (project.id !== selectedProjectId) return project;
 
@@ -439,7 +468,7 @@ function App() {
     setProjects(updatedProjects);
   }
 
-  function deleteProject(projectId) {
+  async function deleteProject(projectId) {
     if (
       !window.confirm(
         "Supprimer ce projet, tous les quiz et toutes les cartes ?"
@@ -448,12 +477,17 @@ function App() {
       return;
     }
 
-    setProjects(
-      projects.filter(
-        (project) => project.id !== projectId
-      )
-    );
+    const { error } = await supabase
+      .from("projects")
+      .delete()
+      .eq("id", projectId);
 
+    if (error) {
+      console.error("Erreur suppression projet:", error);
+      return;
+    }
+
+    setProjects(projects.filter((project) => project.id !== projectId));
     goHome();
   }
 
