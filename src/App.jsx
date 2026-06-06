@@ -803,10 +803,7 @@ if (!session) {
 
 function startReview(quiz) {
   const shuffled = [...quiz.cards].sort(() => Math.random() - 0.5);
-
   setReviewCards(shuffled);
-  setReviewIndex(0);
-  setShowAnswer(false);
   setScreen("review");
 }
 
@@ -1570,7 +1567,13 @@ function startReview(quiz) {
       )}
 
       {screen === "review" && selectedQuiz && (
-        <ReviewScreen quiz={{ ...selectedQuiz, cards: reviewCards.length ? reviewCards : selectedQuiz.cards }} onBack={() => setScreen("quiz")} />
+        <ReviewScreen
+          quiz={{
+            ...selectedQuiz,
+            cards: reviewCards.length > 0 ? reviewCards : selectedQuiz.cards,
+          }}
+          onBack={() => setScreen("quiz")}
+        />
       )}
     </div>
   );
