@@ -482,6 +482,55 @@ function App() {
     setProjects(updatedProjects);
   }
 
+  async function editCard(card) {
+    const newQuestion = window.prompt(
+      "Nouvelle question :",
+      card.question || card.title || ""
+    );
+
+    if (newQuestion === null) return;
+
+    const newAnswer = window.prompt(
+      "Nouvelle réponse :",
+      card.answer || card.content || ""
+    );
+
+    if (newAnswer === null) return;
+
+    const { error } = await supabase
+      .from("cards")
+      .update({
+        question: newQuestion.trim(),
+        answer: newAnswer.trim(),
+        content: newAnswer.trim(),
+      })
+      .eq("id", card.id);
+
+    if (error) {
+      console.error("Erreur modification carte :", error);
+      return;
+    }
+
+    const updatedProjects = projects.map((project) => ({
+      ...project,
+      quizzes: project.quizzes.map((quiz) => ({
+        ...quiz,
+        cards: quiz.cards.map((c) =>
+          c.id === card.id
+            ? {
+                ...c,
+                question: newQuestion.trim(),
+                answer: newAnswer.trim(),
+                content: newAnswer.trim(),
+              }
+            : c
+        ),
+      })),
+    }));
+
+    setProjects(updatedProjects);
+  }
+
   async function deleteProject(projectId) {
     if (
       !window.confirm(
@@ -1454,6 +1503,12 @@ if (!session) {
                   <strong>{card.question}</strong>
                 )}
                 <span>{card.type === "info" ? card.content : card.answer}</span>
+                <button
+                  className="secondary-card"
+                  onClick={() => editCard(card)}
+                >
+                  Modifier texte
+                </button>
                 <button
                   className="secondary-card"
                   onClick={() => clearCardText(card.id)}
