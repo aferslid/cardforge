@@ -44,6 +44,7 @@ function App() {
   const [quizNameError, setQuizNameError] = useState("");
   const [quizViewMode, setQuizViewMode] = useState("overview");
   const [isGeneratingAI, setIsGeneratingAI] = useState(false);
+  const [reviewCards, setReviewCards] = useState([]);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
   const selectedQuiz = selectedProject?.quizzes.find((q) => q.id === selectedQuizId);
@@ -800,6 +801,15 @@ if (!session) {
   return <AuthComponent />;
 }
 
+function startReview(quiz) {
+  const shuffled = [...quiz.cards].sort(() => Math.random() - 0.5);
+
+  setReviewCards(shuffled);
+  setReviewIndex(0);
+  setShowAnswer(false);
+  setScreen("review");
+}
+
 
   return (
     <div className="app">
@@ -1448,7 +1458,7 @@ if (!session) {
               <div className="quiz-actions">
                 <button
                   className="action-card"
-                  onClick={() => setScreen("review")}
+                  onClick={() => startReview(selectedQuiz)}
                 >
                   <strong>🔥 Réviser</strong>
                   <span>Commencer la session d'apprentissage</span>
@@ -1520,12 +1530,14 @@ if (!session) {
                 >
                   Modifier texte
                 </button>
-                <button
-                  className="secondary-card"
-                  onClick={() => clearCardText(card.id)}
-                >
-                  Vider texte
-                </button>
+                {card.type === "info" && (
+                  <button
+                    className="secondary-card"
+                    onClick={() => clearCardText(card.id)}
+                  >
+                    Vider texte
+                  </button>
+                )}
                 <button
                   className="delete-card"
                   onClick={() => deleteCard(card.id)}
@@ -1558,7 +1570,7 @@ if (!session) {
       )}
 
       {screen === "review" && selectedQuiz && (
-        <ReviewScreen quiz={selectedQuiz} onBack={() => setScreen("quiz")} />
+        <ReviewScreen quiz={{ ...selectedQuiz, cards: reviewCards.length ? reviewCards : selectedQuiz.cards }} onBack={() => setScreen("quiz")} />
       )}
     </div>
   );

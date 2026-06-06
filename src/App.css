@@ -730,9 +730,8 @@ button {
 
 .floating-add {
   position: fixed;
-  left: 50%;
+  right: max(20px, calc((100vw - 520px) / 2 + 20px));
   bottom: 28px;
-  transform: translateX(185px);
 
   width: 64px;
   height: 64px;
@@ -744,7 +743,7 @@ button {
 
   font-size: 34px;
   font-weight: 700;
-  
+
   z-index: 9999;
   box-shadow: 0 10px 40px rgba(124, 109, 255, .45);
 }
