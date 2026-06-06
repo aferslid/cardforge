@@ -867,3 +867,25 @@ button {
   font-size: 13px;
   font-weight: 700;
 }
+
+.question {
+  font-size: clamp(28px, 8vw, 56px);
+  line-height: 1.15;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.answer {
+  font-size: clamp(20px, 5vw, 30px);
+  line-height: 1.35;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.flashcard {
+  overflow: hidden;
+}
