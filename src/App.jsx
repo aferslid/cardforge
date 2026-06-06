@@ -1633,6 +1633,15 @@ function ReviewScreen({ quiz, onBack }) {
         Carte {index + 1} / {quiz.cards.length}
       </p>
 
+      <div className="review-progress">
+        <div
+          className="review-progress-fill"
+          style={{
+            width: `${((index + 1) / quiz.cards.length) * 100}%`,
+          }}
+        />
+      </div>
+
       <div className="flashcard">
         {card.image && (
           <img className="review-image" src={card.image} alt="" />
@@ -1653,11 +1662,11 @@ function ReviewScreen({ quiz, onBack }) {
       </div>
 
       {card.type === "info" ? (
-        <button className="primary" onClick={next}>
+        <button className="review-primary" onClick={next}>
           Carte suivante
         </button>
       ) : !showAnswer ? (
-        <button className="primary" onClick={() => setShowAnswer(true)}>
+        <button className="review-primary" onClick={() => setShowAnswer(true)}>
           Voir la réponse
         </button>
       ) : (
