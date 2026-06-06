@@ -7,9 +7,21 @@ const initialProjects = [];
 
 function App() {
   const [projects, setProjects] = useState([]);
-  const [screen, setScreen] = useState("home");
-  const [selectedProjectId, setSelectedProjectId] = useState(null);
-  const [selectedQuizId, setSelectedQuizId] = useState(null);
+  const [screen, setScreen] = useState(
+    localStorage.getItem("cardforge-screen") || "home"
+  );
+
+  const [selectedProjectId, setSelectedProjectId] = useState(
+    localStorage.getItem("cardforge-selected-project") || null
+  );
+
+  const [selectedQuizId, setSelectedQuizId] = useState(
+    localStorage.getItem("cardforge-selected-quiz") || null
+  );
+
+  const [quizViewMode, setQuizViewMode] = useState(
+    localStorage.getItem("cardforge-quiz-view-mode") || "overview"
+  );
   const [newProjectName, setNewProjectName] = useState("");
   const [newQuizName, setNewQuizName] = useState("");
   const [sourceMode, setSourceMode] = useState("ai");
@@ -42,7 +54,6 @@ function App() {
   const [highlightText, setHighlightText] = useState("");
   const [selectedHighlight, setSelectedHighlight] = useState("");
   const [quizNameError, setQuizNameError] = useState("");
-  const [quizViewMode, setQuizViewMode] = useState("overview");
   const [isGeneratingAI, setIsGeneratingAI] = useState(false);
   const [reviewCards, setReviewCards] = useState([]);
 
@@ -64,6 +75,30 @@ function App() {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cardforge-screen", screen);
+  }, [screen]);
+
+  useEffect(() => {
+    if (selectedProjectId) {
+      localStorage.setItem("cardforge-selected-project", selectedProjectId);
+    } else {
+      localStorage.removeItem("cardforge-selected-project");
+    }
+  }, [selectedProjectId]);
+
+  useEffect(() => {
+    if (selectedQuizId) {
+      localStorage.setItem("cardforge-selected-quiz", selectedQuizId);
+    } else {
+      localStorage.removeItem("cardforge-selected-quiz");
+    }
+  }, [selectedQuizId]);
+
+  useEffect(() => {
+    localStorage.setItem("cardforge-quiz-view-mode", quizViewMode);
+  }, [quizViewMode]);
 
   useEffect(() => {
     if (!session?.user) return;
