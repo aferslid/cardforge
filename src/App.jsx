@@ -1484,10 +1484,17 @@ if (!session) {
                   <img className="card-image" src={card.image} alt="" />
                 )}
 
-                {card.title && <strong>{card.title}</strong>}
-                {card.content && <span>{card.content}</span>}
-                {card.question && <strong>{card.question}</strong>}
-                {card.answer && <span>{card.answer}</span>}
+                {card.type === "info" ? (
+                  <>
+                    {card.title && <strong>{card.title}</strong>}
+                    {card.content && <span>{card.content}</span>}
+                  </>
+                ) : (
+                  <>
+                    {card.question && <strong>{card.question}</strong>}
+                    {card.answer && <span>{card.answer}</span>}
+                  </>
+                )}
               </div>
             ))}
 
@@ -1496,13 +1503,17 @@ if (!session) {
                 {card.image && (
                   <img className="card-image" src={card.image} alt="" />
                 )}
-                {card.type === "info" && card.title && (
-                  <strong>{card.title}</strong>
+                {card.type === "info" ? (
+                  <>
+                    {card.title && <strong>{card.title}</strong>}
+                    {card.content && <span>{card.content}</span>}
+                  </>
+                ) : (
+                  <>
+                    {card.question && <strong>{card.question}</strong>}
+                    {card.answer && <span>{card.answer}</span>}
+                  </>
                 )}
-                {card.type !== "info" && (
-                  <strong>{card.question}</strong>
-                )}
-                <span>{card.type === "info" ? card.content : card.answer}</span>
                 <button
                   className="secondary-card"
                   onClick={() => editCard(card)}
