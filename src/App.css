@@ -928,10 +928,6 @@ button {
   transform-style: preserve-3d;
 }
 
-.flashcard.flipped {
-  transform: rotateY(180deg);
-}
-
 .flashcard-content {
   width: 100%;
   transform-style: preserve-3d;
@@ -941,6 +937,27 @@ button {
   backface-visibility: hidden;
 }
 
-.flashcard-back {
-  transform: rotateY(180deg);
+.flashcard {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.flashcard.revealed {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 35px 100px rgba(0,0,0,.55);
+}
+
+.answer {
+  animation: answerReveal .25s ease;
+}
+
+@keyframes answerReveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
