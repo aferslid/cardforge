@@ -43,6 +43,7 @@ function App() {
   const [selectedHighlight, setSelectedHighlight] = useState("");
   const [quizNameError, setQuizNameError] = useState("");
   const [quizViewMode, setQuizViewMode] = useState("overview");
+  const [isGeneratingAI, setIsGeneratingAI] = useState(false);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
   const selectedQuiz = selectedProject?.quizzes.find((q) => q.id === selectedQuizId);
@@ -593,6 +594,8 @@ function App() {
   async function generateWithAI() {
   if (!sourceText.trim()) return;
 
+  setIsGeneratingAI(true);
+
   try {
     const response = await fetch("https://cardforge-production-611b.up.railway.app/generate-cards", {
       method: "POST",
@@ -684,6 +687,8 @@ function App() {
 
   } catch (error) {
     console.error(error);
+  } finally {
+    setIsGeneratingAI(false);
   }
 }
 
@@ -1010,11 +1015,8 @@ if (!session) {
                     onChange={(e) => setSourceText(e.target.value)}
                   />
 
-                  <button
-                    type="button"
-                    onClick={generateWithAI}
-                  >
-                    Générer avec IA
+                  <button onClick={generateWithAI} disabled={isGeneratingAI}>
+                    {isGeneratingAI ? "Génération en cours..." : "Générer avec IA"}
                   </button>
                 </>
               )}
@@ -1367,9 +1369,11 @@ if (!session) {
               </>
             )}
 
-            <button className="primary" onClick={createQuizPlaceholder}>
-              Créer le quiz
-            </button>
+            {sourceMode !== "ai" && (
+              <button className="primary" onClick={createQuizPlaceholder}>
+                Créer le quiz
+              </button>
+            )}
           </section>
         </main>
       )}
