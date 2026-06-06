@@ -922,3 +922,25 @@ button {
   border-radius: 18px;
   padding: 16px;
 }
+
+.flashcard {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-content {
+  width: 100%;
+  transform-style: preserve-3d;
+}
+
+.flashcard-face {
+  backface-visibility: hidden;
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+}

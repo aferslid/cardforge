@@ -1642,7 +1642,7 @@ function ReviewScreen({ quiz, onBack }) {
         />
       </div>
 
-      <div className="flashcard">
+      <div className={`flashcard ${showAnswer ? "flipped" : ""}`}>
         {card.image && (
           <img className="review-image" src={card.image} alt="" />
         )}
