@@ -1013,7 +1013,7 @@ function startReview(quiz) {
       )}
 
       {screen === "createQuiz" && selectedProject && (
-        <main>
+        <main className="create-quiz-page">
           <button className="back" onClick={() => setScreen("project")}>
             ← Retour au projet
           </button>

@@ -961,3 +961,42 @@ button {
     transform: translateY(0);
   }
 }
+
+.create-quiz-page .panel {
+  background:
+    radial-gradient(circle at top left, rgba(124,109,255,.18), transparent 38%),
+    rgba(15, 23, 42, .86);
+  border: 1px solid rgba(148,163,184,.22);
+  border-radius: 30px;
+  padding: 26px;
+  box-shadow: 0 30px 90px rgba(0,0,0,.35);
+}
+
+.create-quiz-page input,
+.create-quiz-page textarea {
+  border-radius: 18px;
+  background: rgba(2,6,23,.85);
+}
+
+.create-quiz-page .tabs button {
+  border-radius: 18px;
+  min-height: 58px;
+  font-weight: 800;
+}
+
+.create-quiz-page .primary {
+  border-radius: 18px;
+  padding: 16px;
+  font-weight: 900;
+}
+
+.create-quiz-page label {
+  text-align: center;
+  font-weight: 800;
+  color: #e2e8f0;
+}
+
+.create-quiz-page h1,
+.create-quiz-page p {
+  text-align: center;
+}
