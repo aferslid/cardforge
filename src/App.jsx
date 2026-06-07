@@ -989,7 +989,7 @@ function startReview(quiz) {
 
           <section className="quiz-hero-card">
             <div>
-              <span className="eyebrow">Projet</span>
+              <span className="eyebrow">PROJET</span>
               <h1>{selectedProject.name}</h1>
               <p>
                 {selectedProject.quizzes.length} quiz ·{" "}
