@@ -39,10 +39,32 @@ app.post("/extract", async (req, res) => {
       return res.status(400).json({ error: "URL manquante" });
     }
 
-    browser = await chromium.launch({ headless: true });
+    browser = await chromium.launch({
+    headless: true,
+    args: [
+        "--disable-blink-features=AutomationControlled",
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+    ],
+    });
 
-    const page = await browser.newPage({
-      viewport: { width: 1280, height: 900 },
+    const context = await browser.newContext({
+    viewport: { width: 1366, height: 900 },
+    userAgent:
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+    locale: "en-US",
+    timezoneId: "Europe/Paris",
+    extraHTTPHeaders: {
+        "Accept-Language": "en-US,en;q=0.9",
+    },
+    });
+
+    const page = await context.newPage();
+
+    await page.addInitScript(() => {
+    Object.defineProperty(navigator, "webdriver", {
+        get: () => undefined,
+    });
     });
 
     try {
@@ -57,6 +79,25 @@ app.post("/extract", async (req, res) => {
     await page.waitForTimeout(8000);
 
     const title = await page.title();
+
+    const bodyText = await page.locator("body").innerText().catch(() => "");
+
+    const isBlocked =
+    bodyText.includes("Performing security verification") ||
+    bodyText.includes("This website uses a security service") ||
+    bodyText.includes("Ray ID") ||
+    bodyText.includes("Verify you are human") ||
+    title.toLowerCase().includes("just a moment");
+
+    if (isBlocked) {
+    await browser.close();
+
+    return res.status(403).json({
+        error:
+        "Plonkit bloque l'import automatique pour l'instant. Essaie plus tard ou utilise l'extension CardForge.",
+        blockedBySecurity: true,
+    });
+    }
 
     const paragraphs = await page.$$eval("p, h1, h2, h3, li, div", (els) =>
       els
