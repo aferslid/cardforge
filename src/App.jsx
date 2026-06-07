@@ -910,9 +910,8 @@ function startReview(quiz) {
                     onClick={() => openProject(project.id)}
                   >
                     <div className="project-card-header">
-                      <div className="project-icon">🌍</div>
-
-                      <div className="project-main-pill">
+                      
+                      <div className="project-main-pill glass">
                         <h3>{project.name}</h3>
                         <p>
                           {project.quizzes.length} deck

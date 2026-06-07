@@ -1014,3 +1014,15 @@ button {
 .project-main-pill p {
   margin: 0;
 }
+
+.project-main-pill{
+  padding: 18px 22px;
+  border-radius: 24px;
+  width: fit-content;
+}
+
+.glass{
+  background: rgba(8,10,25,.65);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.08);
+}
