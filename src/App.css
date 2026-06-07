@@ -1000,3 +1000,17 @@ button {
 .create-quiz-page p {
   text-align: center;
 }
+
+.project-main-pill {
+  margin: 18px;
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: rgba(5, 8, 22, .72);
+  backdrop-filter: blur(14px);
+  width: fit-content;
+}
+
+.project-main-pill h3,
+.project-main-pill p {
+  margin: 0;
+}

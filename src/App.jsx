@@ -912,7 +912,7 @@ function startReview(quiz) {
                     <div className="project-card-header">
                       <div className="project-icon">🌍</div>
 
-                      <div>
+                      <div className="project-main-pill">
                         <h3>{project.name}</h3>
                         <p>
                           {project.quizzes.length} deck
