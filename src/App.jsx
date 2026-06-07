@@ -128,6 +128,8 @@ function App() {
           quizzes: (project.quizzes || []).map((quiz) => ({
             id: quiz.id,
             name: quiz.title,
+              title: quiz.title,
+            coverImage: quiz.cover_image || "",
             cards: (quiz.cards || []).map((card) => ({
               id: card.id,
               type: card.type || "info",
@@ -565,6 +567,31 @@ function App() {
     }));
 
     setProjects(updatedProjects);
+  }
+
+  async function setCardAsDeckCover(card) {
+    if (!selectedQuiz || !card.image) return;
+
+    const { error } = await supabase
+      .from("quizzes")
+      .update({ cover_image: card.image })
+      .eq("id", selectedQuiz.id);
+
+    if (error) {
+      console.error("Erreur image du deck:", error);
+      return;
+    }
+
+    setProjects(
+      projects.map((project) => ({
+        ...project,
+        quizzes: project.quizzes.map((quiz) =>
+          quiz.id === selectedQuiz.id
+            ? { ...quiz, coverImage: card.image }
+            : quiz
+        ),
+      }))
+    );
   }
 
   async function deleteProject(projectId) {
@@ -1555,6 +1582,14 @@ function startReview(quiz) {
                     {card.question && <strong>{card.question}</strong>}
                     {card.answer && <span>{card.answer}</span>}
                   </>
+                )}
+                {card.image && (
+                  <button
+                    className="secondary-card"
+                    onClick={() => setCardAsDeckCover(card)}
+                  >
+                    ⭐ Image du deck
+                  </button>
                 )}
                 <button
                   className="secondary-card"
