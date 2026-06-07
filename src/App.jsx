@@ -1114,7 +1114,10 @@ function startReview(quiz) {
 
               <button
                 className={`creation-group-card ${creationGroup === "ai" ? "active" : ""}`}
-                onClick={() => setCreationGroup("ai")}
+                onClick={() => {
+                  setCreationGroup("ai");
+                  setSourceMode("ai");
+                }}
               >
                 <strong>🤖 IA</strong>
                 <span>Décris ce que tu veux apprendre</span>
@@ -1141,7 +1144,7 @@ function startReview(quiz) {
               </div>
             )}
 
-            {sourceMode === "ai" && (
+            {creationGroup === "ai" && sourceMode === "ai" && (
                 <>
                   <div className="preview-box">
                     <strong>✨ Génération par IA</strong>
