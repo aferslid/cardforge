@@ -125,6 +125,7 @@ function App() {
         data.map((project) => ({
           id: project.id,
           name: project.name,
+          coverImage: project.cover_image || "",
           quizzes: (project.quizzes || []).map((quiz) => ({
             id: quiz.id,
             name: quiz.title,
@@ -898,6 +899,14 @@ function startReview(quiz) {
                   <button
                     key={project.id}
                     className="project-card clean"
+                    style={{
+                      backgroundImage: `linear-gradient(
+                        rgba(0,0,0,.15),
+                        rgba(0,0,0,.75)
+                      ), url(${project.coverImage || "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
                     onClick={() => openProject(project.id)}
                   >
                     <div className="project-card-header">
