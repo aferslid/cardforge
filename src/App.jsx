@@ -58,6 +58,7 @@ function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [creationGroup, setCreationGroup] = useState("");
   const [showProjectSettings, setShowProjectSettings] = useState(false);
+  const [showQuizSettings, setShowQuizSettings] = useState(false);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
   const selectedQuiz = selectedProject?.quizzes.find((q) => q.id === selectedQuizId);
@@ -1581,6 +1582,12 @@ function startReview(quiz) {
           </button>
 
           <section className="quiz-hero-card">
+            <button
+              className="settings-button"
+              onClick={() => setShowQuizSettings(!showQuizSettings)}
+            >
+              ⚙️
+            </button>
             <span className="eyebrow">Deck</span>
             <h1>{selectedQuiz.name}</h1>
             <p>{selectedProject.name} · {selectedQuiz.cards.length} cartes</p>
@@ -1702,25 +1709,30 @@ function startReview(quiz) {
               </div>
             ))}
           </section>
-          <section className="panel">
-            <h3>Gestion du quiz</h3>
+          {showQuizSettings && (
+            <div className="settings-panel">
 
-            <button
-              className="secondary-card"
-              onClick={() =>
-                renameQuiz(selectedQuiz.id, selectedQuiz.name || selectedQuiz.title)
-              }
-            >
-              Renommer le quiz
-            </button>
+              <button
+                onClick={() =>
+                  renameQuiz(selectedQuiz.id, selectedQuiz.name)
+                }
+              >
+                ✏️ Renommer
+              </button>
 
-            <button
-              className="danger"
-              onClick={() => deleteQuiz(selectedQuiz.id)}
-            >
-              Supprimer le quiz
-            </button>
-          </section>
+              <button>
+                🖼 Changer l'image
+              </button>
+
+              <button
+                className="danger"
+                onClick={() => deleteQuiz(selectedQuiz.id)}
+              >
+                🗑 Supprimer
+              </button>
+
+            </div>
+          )}
         </main>
       )}
 
