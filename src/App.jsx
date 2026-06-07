@@ -58,6 +58,7 @@ function App() {
   const [reviewCards, setReviewCards] = useState([]);
   const [zoomImage, setZoomImage] = useState(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [creationGroup, setCreationGroup] = useState("");
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
   const selectedQuiz = selectedProject?.quizzes.find((q) => q.id === selectedQuizId);
@@ -1094,40 +1095,51 @@ function startReview(quiz) {
             />
 
             <label>Méthode de création</label>
-            <div className="tabs">
+            <div className="creation-groups">
               <button
-                className={sourceMode === "ai" ? "active" : ""}
-                onClick={() => setSourceMode("ai")}
+                className={`creation-group-card ${creationGroup === "auto" ? "active" : ""}`}
+                onClick={() => setCreationGroup("auto")}
               >
-                IA
+                <strong>⚡ Import automatique</strong>
+                <span>URL, PDF, Plonkit, ChatGPT</span>
               </button>
+
               <button
-                className={sourceMode === "url" ? "active" : ""}
-                onClick={() => setSourceMode("url")}
+                className={`creation-group-card ${creationGroup === "manual" ? "active" : ""}`}
+                onClick={() => setCreationGroup("manual")}
               >
-                URL
+                <strong>🖍 Sélection manuelle</strong>
+                <span>Texte, photos, OCR, surlignage</span>
               </button>
+
               <button
-                className={sourceMode === "manual" ? "active" : ""}
-                onClick={() => setSourceMode("manual")}
+                className={`creation-group-card ${creationGroup === "ai" ? "active" : ""}`}
+                onClick={() => setCreationGroup("ai")}
               >
-                Manuel
-              </button>
-              <button
-                type="button"
-                className={sourceMode === "pdf" ? "active" : ""}
-                onClick={() => setSourceMode("pdf")}
-              >
-                PDF
-              </button>
-              <button
-                type="button"
-                className={sourceMode === "highlight" ? "active" : ""}
-                onClick={() => setSourceMode("highlight")}
-              >
-                Surlignage
+                <strong>🤖 IA</strong>
+                <span>Décris ce que tu veux apprendre</span>
               </button>
             </div>
+
+            {creationGroup === "auto" && (
+              <div className="tabs">
+                <button onClick={() => setSourceMode("url")}>URL</button>
+                <button onClick={() => setSourceMode("pdf")}>PDF</button>
+              </div>
+            )}
+
+            {creationGroup === "manual" && (
+              <div className="tabs">
+                <button onClick={() => setSourceMode("manual")}>Manuel</button>
+                <button onClick={() => setSourceMode("highlight")}>Surlignage</button>
+              </div>
+            )}
+
+            {creationGroup === "ai" && (
+              <div className="tabs">
+                <button onClick={() => setSourceMode("ai")}>Créer avec IA</button>
+              </div>
+            )}
 
             {sourceMode === "ai" && (
                 <>

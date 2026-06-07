@@ -1052,6 +1052,9 @@ button {
 }
 
 .image-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 18px;
   right: 20px;
@@ -1063,7 +1066,8 @@ button {
 
   background: rgba(255,255,255,.14);
   color: white;
-  font-size: 30px;
+  line-height: 1;
+  font-size: 42px;
 }
 
 .scroll-top-button {
@@ -1094,4 +1098,35 @@ button {
 
 .scroll-top-button:hover {
   transform: scale(1.05);
+}
+
+.creation-groups {
+  display: grid;
+  gap: 14px;
+  margin: 22px 0;
+}
+
+.creation-group-card {
+  text-align: left;
+  padding: 20px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(15,23,42,.75);
+  color: white;
+}
+
+.creation-group-card strong {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.creation-group-card span {
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+.creation-group-card.active {
+  background: linear-gradient(135deg, #665cff, #7c6dff);
+  box-shadow: 0 20px 60px rgba(124,109,255,.35);
 }
