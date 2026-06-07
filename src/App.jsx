@@ -592,6 +592,7 @@ function App() {
         ),
       }))
     );
+    alert("Image du deck mise à jour !");
   }
 
   async function deleteProject(projectId) {
