@@ -1000,6 +1000,14 @@ function startReview(quiz) {
                 <button
                   key={quiz.id}
                   className="deck-grid-card"
+                  style={{
+                    backgroundImage: `linear-gradient(
+                      rgba(0,0,0,.2),
+                      rgba(0,0,0,.7)
+                    ), url(${quiz.coverImage || "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
                   onClick={() => {
                     setSelectedQuizId(quiz.id);
                     setQuizViewMode("overview");
