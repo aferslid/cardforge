@@ -987,7 +987,7 @@ function startReview(quiz) {
         <main>
           <button className="back" onClick={goHome}>← Tous les projets</button>
 
-          <section className="project-hero-card">
+          <section className="quiz-hero-card">
             <div>
               <span className="eyebrow">Projet</span>
               <h1>{selectedProject.name}</h1>
