@@ -1108,8 +1108,8 @@ function startReview(quiz) {
                 className={`creation-group-card ${creationGroup === "manual" ? "active" : ""}`}
                 onClick={() => setCreationGroup("manual")}
               >
-                <strong>🖍 Sélection manuelle</strong>
-                <span>Texte, photos, OCR, surlignage</span>
+                <strong>🖍 Surlignage</strong>
+                <span>Choisis exactement ce qui doit être retenu</span>
               </button>
 
               <button
@@ -1133,8 +1133,9 @@ function startReview(quiz) {
 
             {creationGroup === "manual" && (
               <div className="tabs">
-                <button onClick={() => setSourceMode("manual")}>Manuel</button>
-                <button onClick={() => setSourceMode("highlight")}>Surlignage</button>
+                <button onClick={() => setSourceMode("highlight-url")}>URL</button>
+                <button onClick={() => setSourceMode("highlight-pdf")}>PDF</button>
+                <button onClick={() => setSourceMode("highlight-text")}>Texte</button>
               </div>
             )}
 
@@ -1374,15 +1375,42 @@ function startReview(quiz) {
               </>
             )}
 
-            {creationGroup === "manual" && sourceMode === "manual" && (
+            {creationGroup === "manual" && sourceMode === "highlight-text" && (
               <>
-                <label>Cartes manuelles</label>
+                <div className="preview-box">
+                  <strong>🖍 Surlignage texte</strong>
+                  <p>
+                    Colle un texte, puis sélectionne les passages importants pour créer des cartes.
+                  </p>
+                </div>
+
+                <label>Texte à surligner</label>
                 <textarea
-                  placeholder="Ex : Question 1 | Réponse 1"
+                  placeholder="Colle ici un texte, une note ou un extrait de conversation..."
                   value={sourceText}
                   onChange={(e) => setSourceText(e.target.value)}
                 />
               </>
+            )}
+
+            {creationGroup === "manual" && sourceMode === "highlight-url" && (
+              <div className="preview-box">
+                <strong>🖍 Surlignage URL</strong>
+                <p>
+                  Bientôt : ouvre une page web dans CardForge, sélectionne les parties utiles,
+                  puis transforme-les en cartes.
+                </p>
+              </div>
+            )}
+
+            {creationGroup === "manual" && sourceMode === "highlight-pdf" && (
+              <div className="preview-box">
+                <strong>🖍 Surlignage PDF</strong>
+                <p>
+                  Bientôt : importe un PDF, surligne les passages importants,
+                  puis crée tes cartes.
+                </p>
+              </div>
             )}
 
             {creationGroup === "auto" && sourceMode === "pdf" && (
