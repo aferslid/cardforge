@@ -1183,7 +1183,7 @@ function startReview(quiz) {
                 </>
               )}
 
-             {sourceMode === "url" && (
+             {creationGroup === "auto" && sourceMode === "url" && (
               <>
                 <label>Lien de la source</label>
                 <input
@@ -1374,7 +1374,7 @@ function startReview(quiz) {
               </>
             )}
 
-            {sourceMode === "manual" && (
+            {creationGroup === "manual" && sourceMode === "manual" && (
               <>
                 <label>Cartes manuelles</label>
                 <textarea
@@ -1385,7 +1385,7 @@ function startReview(quiz) {
               </>
             )}
 
-            {sourceMode === "pdf" && (
+            {creationGroup === "auto" && sourceMode === "pdf" && (
               <>
                 <div className="preview-box">
                   <strong>Importer un PDF</strong>
@@ -1465,7 +1465,7 @@ function startReview(quiz) {
               </>
             )}
 
-            {sourceMode === "highlight" && (
+            {creationGroup === "manual" && sourceMode === "highlight" && (
               <>
                 <div className="preview-box">
                   <strong>Surlignage</strong>
