@@ -1026,3 +1026,72 @@ button {
   backdrop-filter: blur(18px);
   border: 1px solid rgba(255,255,255,.08);
 }
+
+.clickable-image {
+  cursor: zoom-in;
+}
+
+.image-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .88);
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.image-modal img {
+  max-width: 96vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 18px;
+}
+
+.image-modal-close {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: none;
+
+  background: rgba(255,255,255,.14);
+  color: white;
+  font-size: 30px;
+}
+
+.scroll-top-button {
+  position: fixed;
+  bottom: 95px;
+  right: 24px;
+
+  width: 58px;
+  height: 58px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(115, 98, 255, .95);
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+
+  box-shadow:
+    0 0 30px rgba(115,98,255,.4);
+
+  z-index: 1000;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.scroll-top-button:hover {
+  transform: scale(1.05);
+}

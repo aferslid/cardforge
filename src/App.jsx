@@ -56,6 +56,8 @@ function App() {
   const [quizNameError, setQuizNameError] = useState("");
   const [isGeneratingAI, setIsGeneratingAI] = useState(false);
   const [reviewCards, setReviewCards] = useState([]);
+  const [zoomImage, setZoomImage] = useState(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
   const selectedQuiz = selectedProject?.quizzes.find((q) => q.id === selectedQuizId);
@@ -99,6 +101,16 @@ function App() {
   useEffect(() => {
     localStorage.setItem("cardforge-quiz-view-mode", quizViewMode);
   }, [quizViewMode]);
+
+  useEffect(() => {
+    function handleScroll() {
+      setShowScrollTop(window.scrollY > 500);
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!session?.user) return;
@@ -1567,7 +1579,12 @@ function startReview(quiz) {
             {quizViewMode === "cards" && selectedQuiz.cards.map((card) => (
               <div key={card.id} className="card-row">
                 {card.image && (
-                  <img className="card-image" src={card.image} alt="" />
+                  <img
+                    className="card-image clickable-image"
+                    src={card.image}
+                    alt=""
+                    onClick={() => setZoomImage(card.image)}
+                  />
                 )}
 
                 {card.type === "info" ? (
@@ -1587,7 +1604,12 @@ function startReview(quiz) {
             {quizViewMode === "edit" && selectedQuiz.cards.map((card) => (
               <div key={card.id} className="card-row">
                 {card.image && (
-                  <img className="card-image" src={card.image} alt="" />
+                  <img
+                    className="card-image clickable-image"
+                    src={card.image}
+                    alt=""
+                    onClick={() => setZoomImage(card.image)}
+                  />
                 )}
                 {card.type === "info" ? (
                   <>
@@ -1662,6 +1684,28 @@ function startReview(quiz) {
           onBack={() => setScreen("quiz")}
         />
       )}
+
+      {zoomImage && (
+        <div className="image-modal" onClick={() => setZoomImage(null)}>
+          <button className="image-modal-close">×</button>
+          <img src={zoomImage} alt="" />
+        </div>
+      )}
+
+      {showScrollTop && (
+        <button
+          className="scroll-top-button"
+          onClick={() =>
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            })
+          }
+        >
+          ↑
+        </button>
+      )}
+
     </div>
   );
 }
@@ -1696,7 +1740,12 @@ function ReviewScreen({ quiz, onBack }) {
 
       <div className={`flashcard ${showAnswer ? "revealed" : ""}`}>
         {card.image && (
-          <img className="review-image" src={card.image} alt="" />
+          <img
+            className="review-image clickable-image"
+            src={card.image}
+            alt=""
+            onClick={() => setZoomImage(card.image)}
+          />
         )}
         {card.type === "info" ? (
           <>
