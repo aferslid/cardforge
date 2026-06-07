@@ -57,6 +57,7 @@ function App() {
   const [zoomImage, setZoomImage] = useState(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [creationGroup, setCreationGroup] = useState("");
+  const [showProjectSettings, setShowProjectSettings] = useState(false);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
   const selectedQuiz = selectedProject?.quizzes.find((q) => q.id === selectedQuizId);
@@ -989,7 +990,13 @@ function startReview(quiz) {
 
           <section className="quiz-hero-card">
             <div>
-              <span className="eyebrow">PROJET</span>
+              <button
+                className="settings-button"
+                onClick={() => setShowProjectSettings(!showProjectSettings)}
+              >
+                ⚙️
+              </button>
+              <span className="eyebrow">Projet</span>
               <h1>{selectedProject.name}</h1>
               <p>
                 {selectedProject.quizzes.length} quiz ·{" "}
@@ -1047,23 +1054,24 @@ function startReview(quiz) {
             </div>
           </section>
 
-          <section className="management-panel">
-            <h3>Gestion du projet</h3>
+          {showProjectSettings && (
+            <div className="settings-panel">
+              <button onClick={renameProject}>
+                Renommer
+              </button>
 
-            <button
-              className="secondary-card"
-              onClick={() => renameProject(selectedProject.id, selectedProject.name)}
-            >
-              Renommer le projet
-            </button>
+              <button>
+                Changer l'image
+              </button>
 
-            <button
-              className="danger"
-              onClick={() => deleteProject(selectedProject.id)}
-            >
-              Supprimer le projet
-            </button>
-          </section>
+              <button
+                className="danger"
+                onClick={() => deleteProject(selectedProject.id)}
+              >
+                Supprimer
+              </button>
+            </div>
+          )}
         </main>
       )}
 
