@@ -40,12 +40,10 @@ function App() {
   const [showImportDetails, setShowImportDetails] = useState(false);
   const [showManualAdd, setShowManualAdd] = useState(false);
   const aiExamples = [
-    "20 mots russes débutant avec traduction française",
     "Les 33 lettres de l'alphabet russe avec prononciation",
     "50 verbes espagnols courants avec traduction française",
     "Capitales des pays d'Europe",
     "20 questions de culture générale faciles",
-    "10 cartes GeoGuessr sur le Brésil",
   ];
   const [pdfCards, setPdfCards] = useState([]);
   const [pdfLoading, setPdfLoading] = useState(false);
