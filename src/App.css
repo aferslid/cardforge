@@ -560,6 +560,7 @@ h4 {
 }
 
 .quiz-hero-card {
+  position: relative;
   background:
     radial-gradient(circle at top left, rgba(99,102,241,.45), transparent 35%),
     linear-gradient(135deg, rgba(15,23,42,.95), rgba(30,41,59,.85));
@@ -1152,18 +1153,46 @@ button {
   cursor:pointer;
 }
 
-.settings-panel{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  margin-top:20px;
+.settings-panel {
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  z-index: 50;
+
+  width: 210px;
+  padding: 10px;
+  border-radius: 18px;
+
+  background: rgba(8, 12, 28, .92);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(18px);
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
 }
 
-.settings-panel button{
-  padding:14px;
-  border-radius:16px;
+.settings-panel button {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 12px;
+
+  text-align: left;
+  background: transparent;
+  color: white;
+
+  font-size: 15px;
+  font-weight: 700;
 }
 
-.settings-panel .danger{
-  background:#d74b4b;
+.settings-panel button:hover {
+  background: rgba(255,255,255,.08);
+}
+
+.settings-panel .danger {
+  color: #ff8b8b;
+  background: transparent;
 }
