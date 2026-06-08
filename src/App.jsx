@@ -61,6 +61,7 @@ function App() {
   const [showQuizSettings, setShowQuizSettings] = useState(false);
   const [renameModal, setRenameModal] = useState(null);
   const [renameValue, setRenameValue] = useState("");
+  const [deleteModal, setDeleteModal] = useState(null);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
   const selectedQuiz = selectedProject?.quizzes.find((q) => q.id === selectedQuizId);
@@ -908,6 +909,20 @@ async function handlePdfUpload(event) {
   }
 }
 
+async function confirmDelete() {
+  if (!deleteModal) return;
+
+  if (deleteModal.type === "project") {
+    await deleteProject(deleteModal.id);
+  }
+
+  if (deleteModal.type === "quiz") {
+    await deleteQuiz(deleteModal.id);
+  }
+
+  setDeleteModal(null);
+}
+
 function handleTextSelection() {
   const selection = window.getSelection().toString().trim();
 
@@ -1132,9 +1147,12 @@ function startReview(quiz) {
 
               <button
                 className="danger"
-                onClick={() => deleteProject(selectedProject.id)}
+                onClick={() => {
+                  setDeleteModal({ type: "project", id: selectedProject.id });
+                  setShowProjectSettings(false);
+                }}
               >
-                Supprimer
+                🗑 Supprimer
               </button>
             </div>
           )}
@@ -1796,7 +1814,10 @@ function startReview(quiz) {
 
               <button
                 className="danger"
-                onClick={() => deleteQuiz(selectedQuiz.id)}
+                onClick={() => {
+                  setDeleteModal({ type: "quiz", id: selectedQuiz.id });
+                  setShowQuizSettings(false);
+                }}
               >
                 🗑 Supprimer
               </button>
@@ -1863,6 +1884,36 @@ function startReview(quiz) {
 
               <button onClick={saveRename}>
                 Sauvegarder
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {deleteModal && (
+        <div className="modal-overlay">
+          <div className="modal-card">
+            <h2>
+              Supprimer {deleteModal.type === "project" ? "ce projet" : "ce deck"} ?
+            </h2>
+
+            <p className="muted">
+              Cette action est définitive.
+            </p>
+
+            <div className="modal-actions">
+              <button
+                className="secondary"
+                onClick={() => setDeleteModal(null)}
+              >
+                Annuler
+              </button>
+
+              <button
+                className="danger"
+                onClick={confirmDelete}
+              >
+                Supprimer
               </button>
             </div>
           </div>
