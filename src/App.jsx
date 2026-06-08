@@ -1674,44 +1674,6 @@ function startReview(quiz) {
           </button>
 
           <section className="quiz-hero-card">
-            <button
-              className="settings-button"
-              onClick={() => setShowQuizSettings(!showQuizSettings)}
-            >
-              ⚙️
-            </button>
-            {showQuizSettings && (
-              <div className="settings-panel">
-
-                <button
-                  onClick={() => {
-                    setRenameValue(selectedQuiz.name);
-                    setRenameModal({
-                      type: "quiz",
-                      id: selectedQuiz.id,
-                    });
-                    setShowQuizSettings(false);
-                  }}
-                >
-                  ✏️ Renommer
-                </button>
-
-                <button>
-                  🖼 Changer l'image
-                </button>
-
-                <button
-                  className="danger"
-                  onClick={() => {
-                    setDeleteModal({ type: "quiz", id: selectedQuiz.id });
-                    setShowQuizSettings(false);
-                  }}
-                >
-                  🗑 Supprimer
-                </button>
-
-              </div>
-            )}
             <span className="eyebrow">Deck</span>
             <h1>{selectedQuiz.name}</h1>
             <p>{selectedProject.name} · {selectedQuiz.cards.length} cartes</p>
