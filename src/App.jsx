@@ -165,6 +165,9 @@ function App() {
   }, [session]);
 
   function goHome() {
+    setShowProjectSettings(false);
+    setShowQuizSettings(false);
+
     setScreen("home");
     setSelectedProjectId(null);
     setSelectedQuizId(null);
@@ -1068,6 +1071,36 @@ function startReview(quiz) {
               >
                 ⚙️
               </button>
+              {showProjectSettings && (
+                <div className="settings-panel">
+                  <button
+                    onClick={() => {
+                      setRenameValue(selectedProject.name);
+                      setRenameModal({
+                        type: "project",
+                        id: selectedProject.id,
+                      });
+                      setShowProjectSettings(false);
+                    }}
+                  >
+                    ✏️ Renommer
+                  </button>
+
+                  <button>
+                    Changer l'image
+                  </button>
+
+                  <button
+                    className="danger"
+                    onClick={() => {
+                      setDeleteModal({ type: "project", id: selectedProject.id });
+                      setShowProjectSettings(false);
+                    }}
+                  >
+                    🗑 Supprimer
+                  </button>
+                </div>
+              )}
               <span className="eyebrow">Projet</span>
               <h1>{selectedProject.name}</h1>
               <p>
@@ -1126,36 +1159,6 @@ function startReview(quiz) {
             </div>
           </section>
 
-          {showProjectSettings && (
-            <div className="settings-panel">
-              <button
-                onClick={() => {
-                  setRenameValue(selectedProject.name);
-                  setRenameModal({
-                    type: "project",
-                    id: selectedProject.id,
-                  });
-                  setShowProjectSettings(false);
-                }}
-              >
-                ✏️ Renommer
-              </button>
-
-              <button>
-                Changer l'image
-              </button>
-
-              <button
-                className="danger"
-                onClick={() => {
-                  setDeleteModal({ type: "project", id: selectedProject.id });
-                  setShowProjectSettings(false);
-                }}
-              >
-                🗑 Supprimer
-              </button>
-            </div>
-          )}
         </main>
       )}
 
@@ -1660,7 +1663,13 @@ function startReview(quiz) {
 
       {screen === "quiz" && selectedProject && selectedQuiz && (
         <main>
-          <button className="back" onClick={() => setScreen("project")}>
+          <button
+            className="back"
+            onClick={() => {
+              setShowQuizSettings(false);
+              setScreen("project");
+            }}
+          >
             ← Retour au projet
           </button>
 
@@ -1671,6 +1680,38 @@ function startReview(quiz) {
             >
               ⚙️
             </button>
+            {showQuizSettings && (
+              <div className="settings-panel">
+
+                <button
+                  onClick={() => {
+                    setRenameValue(selectedQuiz.name);
+                    setRenameModal({
+                      type: "quiz",
+                      id: selectedQuiz.id,
+                    });
+                    setShowQuizSettings(false);
+                  }}
+                >
+                  ✏️ Renommer
+                </button>
+
+                <button>
+                  🖼 Changer l'image
+                </button>
+
+                <button
+                  className="danger"
+                  onClick={() => {
+                    setDeleteModal({ type: "quiz", id: selectedQuiz.id });
+                    setShowQuizSettings(false);
+                  }}
+                >
+                  🗑 Supprimer
+                </button>
+
+              </div>
+            )}
             <span className="eyebrow">Deck</span>
             <h1>{selectedQuiz.name}</h1>
             <p>{selectedProject.name} · {selectedQuiz.cards.length} cartes</p>
@@ -1792,38 +1833,7 @@ function startReview(quiz) {
               </div>
             ))}
           </section>
-          {showQuizSettings && (
-            <div className="settings-panel">
-
-              <button
-                onClick={() => {
-                  setRenameValue(selectedQuiz.name);
-                  setRenameModal({
-                    type: "quiz",
-                    id: selectedQuiz.id,
-                  });
-                  setShowQuizSettings(false);
-                }}
-              >
-                ✏️ Renommer
-              </button>
-
-              <button>
-                🖼 Changer l'image
-              </button>
-
-              <button
-                className="danger"
-                onClick={() => {
-                  setDeleteModal({ type: "quiz", id: selectedQuiz.id });
-                  setShowQuizSettings(false);
-                }}
-              >
-                🗑 Supprimer
-              </button>
-
-            </div>
-          )}
+          
         </main>
       )}
 
