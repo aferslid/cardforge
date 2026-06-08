@@ -63,6 +63,7 @@ function App() {
   const [renameValue, setRenameValue] = useState("");
   const [deleteModal, setDeleteModal] = useState(null);
   const [openDeckMenu, setOpenDeckMenu] = useState(null);
+  const [openProjectMenu, setOpenProjectMenu] = useState(null);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
   const selectedQuiz = selectedProject?.quizzes.find((q) => q.id === selectedQuizId);
@@ -997,6 +998,47 @@ function startReview(quiz) {
                     }}
                     onClick={() => openProject(project.id)}
                   >
+                    <button
+                      type="button"
+                      className="card-menu-button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setOpenProjectMenu(openProjectMenu === project.id ? null : project.id);
+                      }}
+                    >
+                      ⋯
+                    </button>
+                    {openProjectMenu === project.id && (
+                      <div className="card-menu">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setRenameValue(project.name);
+                            setRenameModal({ type: "project", id: project.id });
+                            setOpenProjectMenu(null);
+                          }}
+                        >
+                          ✏️ Renommer
+                        </button>
+
+                        <button type="button" onClick={(e) => e.stopPropagation()}>
+                          🖼 Changer l'image
+                        </button>
+
+                        <button
+                          type="button"
+                          className="danger"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setDeleteModal({ type: "project", id: project.id });
+                            setOpenProjectMenu(null);
+                          }}
+                        >
+                          🗑 Supprimer
+                        </button>
+                      </div>
+                    )}
                     <div className="project-card-header">
                       
                       <div className="project-main-pill glass">
