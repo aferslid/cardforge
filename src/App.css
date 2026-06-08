@@ -818,10 +818,10 @@ button {
 }
 
 .project-card.clean .project-card-header {
-    padding-top: 1px;
-    padding-left: 1px;
-    padding-right: 5px;
-    padding-bottom: 5px;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 50px;
+    padding-bottom: 50px;
 }
 
 .project-card.clean .last-deck-card {
