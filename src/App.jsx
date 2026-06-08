@@ -62,6 +62,7 @@ function App() {
   const [renameModal, setRenameModal] = useState(null);
   const [renameValue, setRenameValue] = useState("");
   const [deleteModal, setDeleteModal] = useState(null);
+  const [openDeckMenu, setOpenDeckMenu] = useState(null);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
   const selectedQuiz = selectedProject?.quizzes.find((q) => q.id === selectedQuizId);
@@ -1109,6 +1110,48 @@ function startReview(quiz) {
                     setScreen("quiz");
                   }}
                 >
+                  <button
+                    type="button"
+                    className="card-menu-button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpenDeckMenu(openDeckMenu === quiz.id ? null : quiz.id);
+                    }}
+                  >
+                    ⋯
+                  </button>
+
+                  {openDeckMenu === quiz.id && (
+                    <div className="card-menu">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setRenameValue(quiz.name);
+                          setRenameModal({ type: "quiz", id: quiz.id });
+                          setOpenDeckMenu(null);
+                        }}
+                      >
+                        ✏️ Renommer
+                      </button>
+
+                      <button type="button" onClick={(e) => e.stopPropagation()}>
+                        🖼 Changer l'image
+                      </button>
+
+                      <button
+                        type="button"
+                        className="danger"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setDeleteModal({ type: "quiz", id: quiz.id });
+                          setOpenDeckMenu(null);
+                        }}
+                      >
+                        🗑 Supprimer
+                      </button>
+                    </div>
+                  )}
                   <div className="deck-grid-overlay">
                     <h3>{quiz.name}</h3>
 

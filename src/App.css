@@ -1241,3 +1241,62 @@ button {
 .quiz-hero-card {
   position: relative;
 }
+
+.deck-grid-card {
+  position: relative;
+}
+
+.card-menu-button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 20;
+
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: none;
+
+  background: rgba(0,0,0,.35);
+  color: white;
+
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.card-menu {
+  position: absolute;
+  top: 58px;
+  right: 14px;
+  z-index: 30;
+
+  width: 190px;
+  padding: 10px;
+  border-radius: 18px;
+
+  background: rgba(8,12,28,.94);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(18px);
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-menu button {
+  border: none;
+  background: transparent;
+  color: white;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.card-menu button:hover {
+  background: rgba(255,255,255,.08);
+}
+
+.card-menu .danger {
+  color: #ff8b8b;
+}
