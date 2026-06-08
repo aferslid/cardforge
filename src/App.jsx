@@ -59,6 +59,8 @@ function App() {
   const [creationGroup, setCreationGroup] = useState("");
   const [showProjectSettings, setShowProjectSettings] = useState(false);
   const [showQuizSettings, setShowQuizSettings] = useState(false);
+  const [renameModal, setRenameModal] = useState(null);
+  const [renameValue, setRenameValue] = useState("");
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
   const selectedQuiz = selectedProject?.quizzes.find((q) => q.id === selectedQuizId);
@@ -718,6 +720,60 @@ function App() {
     );
   }
 
+  async function saveRename() {
+  if (!renameModal || !renameValue.trim()) return;
+
+  if (renameModal.type === "project") {
+    const { error } = await supabase
+      .from("projects")
+      .update({ name: renameValue.trim() })
+      .eq("id", renameModal.id);
+
+    if (error) {
+      console.error("Erreur renommage projet:", error);
+      return;
+    }
+
+    setProjects(
+      projects.map((project) =>
+        project.id === renameModal.id
+          ? { ...project, name: renameValue.trim() }
+          : project
+      )
+    );
+  }
+
+  if (renameModal.type === "quiz") {
+    const { error } = await supabase
+      .from("quizzes")
+      .update({ title: renameValue.trim() })
+      .eq("id", renameModal.id);
+
+    if (error) {
+      console.error("Erreur renommage quiz:", error);
+      return;
+    }
+
+    setProjects(
+      projects.map((project) => ({
+        ...project,
+        quizzes: project.quizzes.map((quiz) =>
+          quiz.id === renameModal.id
+            ? {
+                ...quiz,
+                name: renameValue.trim(),
+                title: renameValue.trim(),
+              }
+            : quiz
+        ),
+      }))
+    );
+  }
+
+  setRenameModal(null);
+  setRenameValue("");
+}
+
   async function generateWithAI() {
   if (!sourceText.trim()) return;
 
@@ -1057,8 +1113,17 @@ function startReview(quiz) {
 
           {showProjectSettings && (
             <div className="settings-panel">
-              <button onClick={renameProject}>
-                Renommer
+              <button
+                onClick={() => {
+                  setRenameValue(selectedProject.name);
+                  setRenameModal({
+                    type: "project",
+                    id: selectedProject.id,
+                  });
+                  setShowProjectSettings(false);
+                }}
+              >
+                ✏️ Renommer
               </button>
 
               <button>
@@ -1713,9 +1778,14 @@ function startReview(quiz) {
             <div className="settings-panel">
 
               <button
-                onClick={() =>
-                  renameQuiz(selectedQuiz.id, selectedQuiz.name)
-                }
+                onClick={() => {
+                  setRenameValue(selectedQuiz.name);
+                  setRenameModal({
+                    type: "quiz",
+                    id: selectedQuiz.id,
+                  });
+                  setShowQuizSettings(false);
+                }}
               >
                 ✏️ Renommer
               </button>
@@ -1765,6 +1835,38 @@ function startReview(quiz) {
         >
           ↑
         </button>
+      )}
+
+      {renameModal && (
+        <div className="modal-overlay">
+          <div className="modal-card">
+            <h2>
+              Renommer {renameModal.type === "project" ? "le projet" : "le deck"}
+            </h2>
+
+            <input
+              value={renameValue}
+              onChange={(e) => setRenameValue(e.target.value)}
+              autoFocus
+            />
+
+            <div className="modal-actions">
+              <button
+                className="secondary"
+                onClick={() => {
+                  setRenameModal(null);
+                  setRenameValue("");
+                }}
+              >
+                Annuler
+              </button>
+
+              <button onClick={saveRename}>
+                Sauvegarder
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
     </div>
