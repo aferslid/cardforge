@@ -818,8 +818,8 @@ button {
 }
 
 .project-card.clean .project-card-header {
-    padding-top: 10px;
-    padding-left: 10px;
+    padding-top: 1px;
+    padding-left: 1px;
     padding-right: 22px;
     padding-bottom: 22px;
 }
