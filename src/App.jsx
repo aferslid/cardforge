@@ -119,6 +119,17 @@ function App() {
   }, []);
 
   useEffect(() => {
+    function closeMenus() {
+      setOpenProjectMenu(null);
+      setOpenDeckMenu(null);
+    }
+
+    window.addEventListener("click", closeMenus);
+
+    return () => window.removeEventListener("click", closeMenus);
+  }, []);
+
+  useEffect(() => {
     if (!session?.user) return;
 
     async function loadProjects() {
@@ -1009,7 +1020,7 @@ function startReview(quiz) {
                       ⋯
                     </button>
                     {openProjectMenu === project.id && (
-                      <div className="card-menu">
+                      <div className="card-menu" onClick={(e) => e.stopPropagation()}>
                         <button
                           type="button"
                           onClick={(e) => {
@@ -1164,7 +1175,7 @@ function startReview(quiz) {
                   </button>
 
                   {openDeckMenu === quiz.id && (
-                    <div className="card-menu">
+                    <div className="card-menu" onClick={(e) => e.stopPropagation()}>
                       <button
                         type="button"
                         onClick={(e) => {
