@@ -1126,7 +1126,7 @@ function startReview(quiz) {
 
       {screen === "project" && selectedProject && (
         <main>
-          <button className="back" onClick={goHome}>← Tous les projets</button>
+          <button className="back" onClick={goHome}>← All projects</button>
 
           <section className="quiz-hero-card">
             <div>
@@ -1236,16 +1236,16 @@ function startReview(quiz) {
       {screen === "createQuiz" && selectedProject && (
         <main className="create-quiz-page">
           <button className="back" onClick={() => setScreen("project")}>
-            ← Retour au projet
+            ← Back to project
           </button>
 
           <section className="hero small">
-            <h1>Nouveau quiz</h1>
-            <p>Projet : {selectedProject.name}</p>
+            <h1>New deck</h1>
+            <p>Project : {selectedProject.name}</p>
           </section>
 
           <section className="panel">
-            <label>Nom du quiz</label>
+            <label>Deck name</label>
             {quizNameError && (
               <p className="error-message">{quizNameError}</p>
             )}
@@ -1741,7 +1741,7 @@ function startReview(quiz) {
               setScreen("project");
             }}
           >
-            ← Retour au projet
+            ← Back to projects
           </button>
 
           <section className="quiz-hero-card">
