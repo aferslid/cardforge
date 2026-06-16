@@ -1010,9 +1010,9 @@ function startReview(quiz) {
           <section className="home-hero">
             <h1>CardForge</h1>
 
-            <h2>Your worlds</h2>
+            <h2>Your projects</h2>
 
-            <p>Pick up where you left off</p>
+            <p>Continue where you left off</p>
           </section>
 
           <section>
