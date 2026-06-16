@@ -1220,7 +1220,7 @@ function startReview(quiz) {
                     <h3>{quiz.name}</h3>
 
                     <span>
-                      {quiz.cards.length} cartes
+                      {quiz.cards.length} cards
                     </span>
 
                     <div className="deck-progress" />
@@ -1312,14 +1312,14 @@ function startReview(quiz) {
             {creationGroup === "ai" && sourceMode === "ai" && (
                 <>
                   <div className="preview-box">
-                    <strong>✨ Génération par IA</strong>
+                    <strong>✨ AI Generation</strong>
                     <p>
-                      Décris ce que tu veux apprendre. L’IA va créer un deck de cartes
+                      Describe what you want to learn. AI will automatically create a deck of flashcards for you.
                       question/réponse.
                     </p>
                   </div>
 
-                  <label>Exemples rapides</label>
+                  <label>Quick examples</label>
 
                   <div className="example-grid">
                     {aiExamples.map((example) => (
@@ -1375,16 +1375,16 @@ function startReview(quiz) {
                   <div className="import-result">
                     <strong>Page importée</strong>
                     <p>{extractedPage.title}</p>
-                    <p>{extractedPage.cardCandidates?.length || 0} cartes prêtes</p>
+                    <p>{extractedPage.cardCandidates?.length || 0} cards ready</p>
                     <p>Import type: {extractedPage.importType}</p>
                     <button type="button" onClick={createQuizFromCandidates}>
-                      Créer le deck avec ces cartes
+                      Create dek with these cards
                     </button>
                     <button
                       type="button"
                       onClick={() => setShowImportDetails(!showImportDetails)}
                     >
-                      {showImportDetails ? "Masquer détails" : "Voir détails"}
+                      {showImportDetails ? "Hide details" : "View details"}
                     </button>
                   </div>
                 )}
@@ -1394,18 +1394,18 @@ function startReview(quiz) {
                   className="secondary-card"
                   onClick={() => setShowManualAdd(!showManualAdd)}
                   >
-                  {showManualAdd ? "Masquer ajout manuel" : "+ Ajouter une carte manuellement"}
+                  {showManualAdd ? "Hide manual entry" : "+ Add card manually"}
                 </button>
 
                 {extractedPage && showImportDetails && (
                   <div className="extracted-preview">
                     <div className="text-preview">
                       <strong>Détails techniques</strong>
-                      <p>{extractedPage.images.length} images brutes trouvées</p>
-                      <p>{extractedPage.paragraphs.length} textes bruts trouvés</p>
+                      <p>{extractedPage.images.length} raw images found</p>
+                      <p>{extractedPage.paragraphs.length} raw text found</p>
                       <p>Import type: {extractedPage.importType}</p>
                     </div>
-                    <h3>Images importées</h3>
+                    <h3>Imported images</h3>
 
                     <div className="image-grid">
                       {extractedPage.images.slice(0, 12).map((image, index) => (
@@ -1413,7 +1413,7 @@ function startReview(quiz) {
                       ))}
                     </div>
 
-                    <h3>Cartes candidates</h3>
+                    <h3>Candidate cards</h3>
 
                     {extractedPage.cardCandidates?.slice(0, 10).map((card, index) => (
                       <div key={index} className="candidate-card">
@@ -1428,7 +1428,7 @@ function startReview(quiz) {
                       </div>
                     ))}
 
-                    <h3>Textes importés</h3>
+                    <h3>Imported text</h3>
 
                     {extractedPage.paragraphs.slice(0, 8).map((text, index) => (
                       <div key={index} className="text-preview">
@@ -1441,14 +1441,14 @@ function startReview(quiz) {
                 {showManualAdd && (
                   <>
                     <div className="preview-box">
-                      <strong>Création depuis source</strong>
+                      <strong>Create from source</strong>
                       <p>
-                        Pour l’instant : ouvre la source, copie ce que tu veux retenir,
-                        puis crée la carte ici.
+                        For now, open the source, copy what you want to learn,
+                        then create the card here.
                       </p>
                     </div>
 
-                    <label>Type de carte</label>
+                    <label>Card type</label>
 
                     <div className="tabs">
                       <button
@@ -1467,9 +1467,9 @@ function startReview(quiz) {
                         Info
                       </button>
 
-                      <label>Image URL</label>
+                      <label>Picture URL</label>
                       <input
-                        placeholder="Colle ici l’URL d’une image"
+                        placeholder="Paste URL picture here"
                         value={cardImage}
                         onChange={(e) => setCardImage(e.target.value)}
                       />
@@ -1512,7 +1512,7 @@ function startReview(quiz) {
                     )}
 
                     <button type="button" onClick={addManualCard}>
-                      + Ajouter la carte
+                      + Add card
                     </button>
 
                     {manualCards.length > 0 && (
@@ -1522,7 +1522,7 @@ function startReview(quiz) {
                           className="secondary"
                           onClick={() => setManualCards([])}
                         >
-                          Vider les sélections
+                          Empty selections
                         </button>
                         <strong>{manualCards.length} carte(s) ajoutée(s)</strong>
 
@@ -1542,15 +1542,15 @@ function startReview(quiz) {
             {creationGroup === "manual" && sourceMode === "highlight-text" && (
               <>
                 <div className="preview-box">
-                  <strong>🖍 Surlignage texte</strong>
+                  <strong>🖍 Text Highlight</strong>
                   <p>
-                    Colle un texte, puis sélectionne les passages importants pour créer des cartes.
+                    Paste text, then select the important parts to create cards.
                   </p>
                 </div>
 
-                <label>Texte à surligner</label>
+                <label>Text to highlight</label>
                 <textarea
-                  placeholder="Colle ici un texte, une note ou un extrait de conversation..."
+                  placeholder="Paste text, notes, or a conversation excerpt here..."
                   value={sourceText}
                   onChange={(e) => setSourceText(e.target.value)}
                 />
@@ -1559,20 +1559,20 @@ function startReview(quiz) {
 
             {creationGroup === "manual" && sourceMode === "highlight-url" && (
               <div className="preview-box">
-                <strong>🖍 Surlignage URL</strong>
+                <strong>🖍 URL highlight</strong>
                 <p>
-                  Bientôt : ouvre une page web dans CardForge, sélectionne les parties utiles,
-                  puis transforme-les en cartes.
+                  Soon: open a website in CardForge, select the parts of interest,
+                  to transform them into cards.
                 </p>
               </div>
             )}
 
             {creationGroup === "manual" && sourceMode === "highlight-pdf" && (
               <div className="preview-box">
-                <strong>🖍 Surlignage PDF</strong>
+                <strong>🖍 PDF highlight</strong>
                 <p>
-                  Bientôt : importe un PDF, surligne les passages importants,
-                  puis crée tes cartes.
+                  Soon: import PDF, select the parts of interest,
+                  to transform them into cards.
                 </p>
               </div>
             )}
@@ -1580,15 +1580,15 @@ function startReview(quiz) {
             {creationGroup === "auto" && sourceMode === "pdf" && (
               <>
                 <div className="preview-box">
-                  <strong>Importer un PDF</strong>
+                  <strong>Import PDF</strong>
                   <p>
-                    Pour l’instant, CardForge détecte les lignes simples du type
-                    “mot - traduction”, “terme : définition” ou “question = réponse”.
+                    For now, CardForge detect simple lines like 
+                    "word - translation", "word - meaning", or "question - answer".
                   </p>
                 </div>
 
-                <label>Fichier PDF</label>
-                <label>Type de cartes PDF</label>
+                <label>PDF file</label>
+                <label>PDF card type</label>
 
                 <div className="tabs">
                   <button
