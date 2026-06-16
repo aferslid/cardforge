@@ -1057,7 +1057,7 @@ function startReview(quiz) {
                             setOpenProjectMenu(null);
                           }}
                         >
-                          🗑 Supprimer
+                          🗑 Delete
                         </button>
                       </div>
                     )}
