@@ -1037,17 +1037,19 @@ function startReview(quiz) {
                     }}
                     onClick={() => openProject(project.id)}
                   >
-                    <button
-                      type="button"
-                      className="card-menu-button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setOpenProjectMenu(openProjectMenu === project.id ? null : project.id);
-                      }}
-                    >
-                      ⋯
-                    </button>
-                    {openProjectMenu === project.id && (
+                    {project.user_id === session.user.id && (
+                      <button
+                        type="button"
+                        className="card-menu-button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setOpenProjectMenu(openProjectMenu === project.id ? null : project.id);
+                        }}
+                      >
+                        ...
+                      </button>
+                    )}
+                    {project.user_id === session.user.id && openProjectMenu === project.id && (
                       <div className="card-menu" onClick={(e) => e.stopPropagation()}>
                         <button
                           type="button"
@@ -1191,18 +1193,20 @@ function startReview(quiz) {
                     setScreen("quiz");
                   }}
                 >
-                  <button
-                    type="button"
-                    className="card-menu-button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setOpenDeckMenu(openDeckMenu === quiz.id ? null : quiz.id);
-                    }}
-                  >
-                    ⋯
-                  </button>
+                  {quiz.user_id === session.user.id && (
+                    <button
+                      type="button"
+                      className="card-menu-button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setOpenDeckMenu(openDeckMenu === quiz.id ? null : quiz.id);
+                      }}
+                    >
+                      ...
+                    </button>
+                  )}
 
-                  {openDeckMenu === quiz.id && (
+                  {quiz.user_id === session.user.id && openDeckMenu === quiz.id && (
                     <div className="card-menu" onClick={(e) => e.stopPropagation()}>
                       <button
                         type="button"
