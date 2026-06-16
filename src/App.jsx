@@ -1381,7 +1381,7 @@ function startReview(quiz) {
                 )}
 
                 <button type="button" onClick={extractUrl}>
-                  {isExtracting ? "Import en cours..." : "Importer la page"}
+                  {isExtracting ? "Import pending..." : "Importe page"}
                 </button>
 
                 {extractError && (
@@ -1390,12 +1390,12 @@ function startReview(quiz) {
 
                 {extractedPage && (
                   <div className="import-result">
-                    <strong>Page importée</strong>
+                    <strong>Page imported</strong>
                     <p>{extractedPage.title}</p>
                     <p>{extractedPage.cardCandidates?.length || 0} cards ready</p>
                     <p>Import type: {extractedPage.importType}</p>
                     <button type="button" onClick={createQuizFromCandidates}>
-                      Create dek with these cards
+                      Create deck with these cards
                     </button>
                     <button
                       type="button"
