@@ -438,6 +438,10 @@ function detectImportType(url) {
     return "wikipedia";
   }
 
+  if (url.includes("theus50.com")) {
+    return "us50-license-plates";
+  }
+
   return "gallery";
 }
 
