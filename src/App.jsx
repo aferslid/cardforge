@@ -1621,8 +1621,8 @@ function startReview(quiz) {
 
                 {pdfCards.length > 0 && (
                   <div className="import-result">
-                    <strong>PDF importé</strong>
-                    <p>{pdfCards.length} cartes détectées</p>
+                    <strong>Imported PDF</strong>
+                    <p>{pdfCards.length} detected cards</p>
 
                     <button
                       type="button"
@@ -1650,7 +1650,7 @@ function startReview(quiz) {
                         setScreen("quiz");
                       }}
                     >
-                      Créer le deck avec ces cartes
+                      Create deck with these cards
                     </button>
                   </div>
                 )}
@@ -1660,13 +1660,13 @@ function startReview(quiz) {
             {creationGroup === "manual" && sourceMode === "highlight" && (
               <>
                 <div className="preview-box">
-                  <strong>Surlignage</strong>
+                  <strong>Highlight</strong>
                   <p>
-                    Colle un texte, sélectionne une phrase, puis crée une carte avec ce que tu as choisi.
+                    Paste text, select a sentence, then create a card.
                   </p>
                 </div>
 
-                <label>Texte à lire</label>
+                <label>Text to be read</label>
 
                 <textarea
                   placeholder="Colle ici un article, une note, un cours..."
@@ -1692,14 +1692,14 @@ function startReview(quiz) {
                       type="button"
                       onClick={addHighlightCard}
                     >
-                      Ajouter cette sélection
+                      Add this selection
                     </button>
                   </div>
                 )}
 
                 {manualCards.length > 0 && (
                   <div className="created-cards">
-                    <strong>{manualCards.length} carte(s) ajoutée(s)</strong>
+                    <strong>{manualCards.length} card(s) added</strong>
 
                     {manualCards.map((card) => (
                       <div key={card.id} className="mini-card">
@@ -1725,7 +1725,7 @@ function startReview(quiz) {
 
             {sourceMode !== "ai" && (
               <button className="primary" onClick={createQuizPlaceholder}>
-                Créer le quiz
+                Create deck
               </button>
             )}
           </section>
@@ -1752,7 +1752,7 @@ function startReview(quiz) {
 
           <section>
             <div className="section-header">
-              <h2>Que veux-tu faire ?</h2>
+              <h2>What do you want to do?</h2>
             </div>
 
             {quizViewMode === "overview" && (
@@ -1762,15 +1762,15 @@ function startReview(quiz) {
                   onClick={() => startReview(selectedQuiz)}
                 >
                   <strong>🔥 Réviser</strong>
-                  <span>Commencer la session d'apprentissage</span>
+                  <span>Start learning session</span>
                 </button>
 
                 <button
                   className="action-card"
                   onClick={() => setQuizViewMode("cards")}
                 >
-                  <strong>📖 Parcourir</strong>
-                  <span>Voir toutes les cartes du deck</span>
+                  <strong>📖 Browse</strong>
+                  <span>See all cards from deck</span>
                 </button>
 
                 <button
@@ -1778,14 +1778,14 @@ function startReview(quiz) {
                   onClick={() => setQuizViewMode("edit")}
                 >
                   <strong>🛠 Edit</strong>
-                  <span>Supprimer ou nettoyer les cartes</span>
+                  <span>Delete or clean cards</span>
                 </button>
               </div>
             )}
 
             {quizViewMode !== "overview" && (
               <button onClick={() => setQuizViewMode("overview")}>
-                ← Retour
+                ← Back
               </button>
             )}
 
@@ -1840,28 +1840,28 @@ function startReview(quiz) {
                     className="secondary-card"
                     onClick={() => setCardAsDeckCover(card)}
                   >
-                    ⭐ Image du deck
+                    ⭐ Image of deck
                   </button>
                 )}
                 <button
                   className="secondary-card"
                   onClick={() => editCard(card)}
                 >
-                  Modifier texte
+                  Modify text
                 </button>
                 {card.type === "info" && (
                   <button
                     className="secondary-card"
                     onClick={() => clearCardText(card.id)}
                   >
-                    Vider texte
+                    Empty text
                   </button>
                 )}
                 <button
                   className="delete-card"
                   onClick={() => deleteCard(card.id)}
                 >
-                  Supprimer
+                  Delete
                 </button>
               </div>
             ))}
@@ -1905,7 +1905,7 @@ function startReview(quiz) {
         <div className="modal-overlay">
           <div className="modal-card">
             <h2>
-              Renommer {renameModal.type === "project" ? "le projet" : "le deck"}
+              Rename {renameModal.type === "project" ? "le projet" : "le deck"}
             </h2>
 
             <input
@@ -1922,11 +1922,11 @@ function startReview(quiz) {
                   setRenameValue("");
                 }}
               >
-                Annuler
+                Cancel
               </button>
 
               <button onClick={saveRename}>
-                Sauvegarder
+                Save
               </button>
             </div>
           </div>
@@ -1937,7 +1937,7 @@ function startReview(quiz) {
         <div className="modal-overlay">
           <div className="modal-card">
             <h2>
-              Supprimer {deleteModal.type === "project" ? "ce projet" : "ce deck"} ?
+              Delete {deleteModal.type === "project" ? "ce projet" : "ce deck"} ?
             </h2>
 
             <p className="muted">
@@ -1949,14 +1949,14 @@ function startReview(quiz) {
                 className="secondary"
                 onClick={() => setDeleteModal(null)}
               >
-                Annuler
+                Cancel
               </button>
 
               <button
                 className="danger"
                 onClick={confirmDelete}
               >
-                Supprimer
+                Delete
               </button>
             </div>
           </div>
