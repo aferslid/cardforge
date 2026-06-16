@@ -255,7 +255,9 @@ function App() {
       .insert({
         project_id: selectedProject.id,
         user_id: session.user.id,
-        is_public: session.user.id === "37ab8e4a-5f60-44ea-836d-a3b6e3e4b2f3",
+        is_public:
+          session.user.id === "37ab8e4a-5f60-44ea-836d-a3b6e3e4b2f3" &&
+          selectedProject.id === "4acdbbff-1746-4bd8-9f71-cac9faa25cb4",
         title: newQuizName.trim(),
       })
       .select()
@@ -417,7 +419,9 @@ function App() {
       .insert({
         project_id: selectedProject.id,
         user_id: session.user.id,
-        is_public: session.user.id === "37ab8e4a-5f60-44ea-836d-a3b6e3e4b2f3",
+        is_public:
+          session.user.id === "37ab8e4a-5f60-44ea-836d-a3b6e3e4b2f3" &&
+          selectedProject.id === "4acdbbff-1746-4bd8-9f71-cac9faa25cb4",
         title: newQuizName.trim(),
       })
       .select()
@@ -831,7 +835,9 @@ function App() {
       .insert({
         project_id: selectedProject.id,
         user_id: session.user.id,
-        is_public: session.user.id === "37ab8e4a-5f60-44ea-836d-a3b6e3e4b2f3",
+        is_public:
+          session.user.id === "37ab8e4a-5f60-44ea-836d-a3b6e3e4b2f3" &&
+          selectedProject.id === "4acdbbff-1746-4bd8-9f71-cac9faa25cb4",
         title: quizTitle,
       })
       .select()
