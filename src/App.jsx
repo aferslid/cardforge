@@ -1133,11 +1133,11 @@ function startReview(quiz) {
               <span className="eyebrow">Projet</span>
               <h1>{selectedProject.name}</h1>
               <p>
-                {selectedProject.quizzes.length} quiz ·{" "}
+                {selectedProject.quizzes.length} decks ·{" "}
                 {selectedProject.quizzes.reduce(
                   (total, quiz) => total + quiz.cards.length,
                   0
-                )} cartes
+                )} cards
               </p>
             </div>
           </section>
