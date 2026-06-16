@@ -11,8 +11,18 @@ export default function AuthComponent() {
     <div style={{ padding: "40px", textAlign: "center" }}>
       <h1>CardForge</h1>
 
+      <p className="auth-subtitle">
+        Turn websites, PDFs, and notes into flashcards.
+      </p>
+
+      <div className="auth-features">
+        <div>🌐 Websites</div>
+        <div>📄 PDFs</div>
+        <div>✨ AI flashcards</div>
+      </div>
+
       <button onClick={signInGoogle}>
-        Se connecter avec Google
+        Continue with Google
       </button>
     </div>
   );
