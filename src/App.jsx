@@ -997,7 +997,7 @@ function startReview(quiz) {
           </section>
 
           <section>
-            <h2>Continuer l'apprentissage</h2>
+            <h2>Continue learning</h2>
             <div className="project-grid">
               {projects.map((project) => {
                 const lastQuiz = project.quizzes?.[0];
@@ -1143,16 +1143,16 @@ function startReview(quiz) {
           </section>
 
           <button className="primary create-main" onClick={() => setScreen("createQuiz")}>
-            + Nouveau quiz
+            + New deck
           </button>
 
           <section className="section-block">
             <div className="section-header">
-              <h2>Mes decks</h2>
+              <h2>My decks</h2>
             </div>
 
             {selectedProject.quizzes.length === 0 && (
-              <p className="muted">Aucun quiz pour l’instant.</p>
+              <p className="muted">No decks for the moment.</p>
             )}
 
             <div className="deck-grid">
@@ -1777,7 +1777,7 @@ function startReview(quiz) {
                   className="action-card"
                   onClick={() => setQuizViewMode("edit")}
                 >
-                  <strong>🛠 Modifier</strong>
+                  <strong>🛠 Edit</strong>
                   <span>Supprimer ou nettoyer les cartes</span>
                 </button>
               </div>
