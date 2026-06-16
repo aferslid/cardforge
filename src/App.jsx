@@ -146,7 +146,7 @@ function App() {
         .order("created_at", { ascending: false });
 
       if (error) {
-        console.error("Erreur chargement projets:", error);
+        console.error("Error loading projects:", error);
         return;
       }
 
@@ -206,7 +206,7 @@ function App() {
       .single();
 
     if (error) {
-      console.error("Erreur création projet:", error);
+      console.error("Error creating project:", error);
       return;
     }
 
@@ -643,7 +643,7 @@ function App() {
       .eq("id", projectId);
 
     if (error) {
-      console.error("Erreur suppression projet:", error);
+      console.error("Error deleting project:", error);
       return;
     }
 
@@ -652,7 +652,7 @@ function App() {
   }
 
   async function renameProject(projectId, currentName) {
-    const newName = window.prompt("Nouveau nom du projet :", currentName);
+    const newName = window.prompt("New project name:", currentName);
 
     if (!newName || !newName.trim()) return;
 
@@ -1091,7 +1091,7 @@ function startReview(quiz) {
           <button
             className="floating-add"
             onClick={async () => {
-              const name = prompt("Nom du projet ?");
+              const name = prompt("Project name?");
               if (!name || !name.trim()) return;
 
               const { data, error } = await supabase
@@ -1104,7 +1104,7 @@ function startReview(quiz) {
                 .single();
 
               if (error) {
-                console.error("Erreur création projet:", error);
+                console.error("Error project creation:", error);
                 return;
               }
 
@@ -1130,7 +1130,7 @@ function startReview(quiz) {
 
           <section className="quiz-hero-card">
             <div>
-              <span className="eyebrow">Projet</span>
+              <span className="eyebrow">Project</span>
               <h1>{selectedProject.name}</h1>
               <p>
                 {selectedProject.quizzes.length} decks ·{" "}
@@ -1905,7 +1905,7 @@ function startReview(quiz) {
         <div className="modal-overlay">
           <div className="modal-card">
             <h2>
-              Rename {renameModal.type === "project" ? "le projet" : "le deck"}
+              Rename {renameModal.type === "project" ? "project" : "deck"}
             </h2>
 
             <input
@@ -1926,7 +1926,7 @@ function startReview(quiz) {
               </button>
 
               <button onClick={saveRename}>
-                Save
+                Save changes
               </button>
             </div>
           </div>
@@ -1937,11 +1937,11 @@ function startReview(quiz) {
         <div className="modal-overlay">
           <div className="modal-card">
             <h2>
-              Delete {deleteModal.type === "project" ? "ce projet" : "ce deck"} ?
+              Delete {deleteModal.type === "project" ? "project" : "deck"} ?
             </h2>
 
             <p className="muted">
-              This action is definitive.
+              This action cannot be undone.
             </p>
 
             <div className="modal-actions">
