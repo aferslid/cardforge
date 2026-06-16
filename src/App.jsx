@@ -974,6 +974,16 @@ function startReview(quiz) {
 
   return (
     <div className="app">
+
+      <button
+        className="logout-btn"
+        onClick={async () => {
+          await supabase.auth.signOut();
+          window.location.reload();
+        }}
+      >
+        Déconnexion
+      </button>
       
       {screen === "home" && (
         <main>
