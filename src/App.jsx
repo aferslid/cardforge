@@ -40,10 +40,10 @@ function App() {
   const [showImportDetails, setShowImportDetails] = useState(false);
   const [showManualAdd, setShowManualAdd] = useState(false);
   const aiExamples = [
-    "Les 33 lettres de l'alphabet russe avec prononciation",
-    "50 verbes espagnols courants avec traduction française",
-    "Capitales des pays d'Europe",
-    "20 questions de culture générale faciles",
+    "The 33 letters of the Russian alphabet with pronunciation",
+    "50 common Spanish verbs with translations",
+    "Capitals of Europe",
+    "20 easy general knowledge questions"
   ];
   const [pdfCards, setPdfCards] = useState([]);
   const [pdfLoading, setPdfLoading] = useState(false);
@@ -1250,7 +1250,7 @@ function startReview(quiz) {
               <p className="error-message">{quizNameError}</p>
             )}
             <input
-              placeholder="Ex : Alphabet cyrillique, Brésil, Australie..."
+              placeholder="Ex : Cyrillic alphabet, Brazil, Australia..."
               value={newQuizName}
               onChange={(e) => {
                 setNewQuizName(e.target.value);
