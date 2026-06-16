@@ -156,10 +156,12 @@ function App() {
           name: project.name,
           coverImage: project.cover_image || "",
           quizzes: (project.quizzes || [])
-            .filter(
-              (quiz) =>
-                quiz.user_id === session.user.id ||
-                quiz.is_public === true
+            .filter((quiz) =>
+              quiz.user_id === session.user.id ||
+              (
+                quiz.is_public &&
+                quiz.user_id === "37ab8e4a-5f60-44ea-836d-a3b6e3e4b2f3"
+              )
             )
             .map((quiz) => ({
             id: quiz.id,
@@ -253,6 +255,7 @@ function App() {
       .insert({
         project_id: selectedProject.id,
         user_id: session.user.id,
+        is_public: session.user.id === "37ab8e4a-5f60-44ea-836d-a3b6e3e4b2f3",
         title: newQuizName.trim(),
       })
       .select()
@@ -414,6 +417,7 @@ function App() {
       .insert({
         project_id: selectedProject.id,
         user_id: session.user.id,
+        is_public: session.user.id === "37ab8e4a-5f60-44ea-836d-a3b6e3e4b2f3",
         title: newQuizName.trim(),
       })
       .select()
@@ -827,6 +831,7 @@ function App() {
       .insert({
         project_id: selectedProject.id,
         user_id: session.user.id,
+        is_public: session.user.id === "37ab8e4a-5f60-44ea-836d-a3b6e3e4b2f3",
         title: quizTitle,
       })
       .select()
