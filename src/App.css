@@ -1330,40 +1330,48 @@ button {
   right: 24px;
   z-index: 9999;
 
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
 
-  height: 54px;
-  padding: 0 14px 0 22px;
+  background: rgba(15,23,42,.8);
+  border: 1px solid rgba(148,163,184,.25);
   border-radius: 999px;
 
-  background: rgba(15, 23, 42, 0.78);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  backdrop-filter: blur(14px);
+  padding: 8px;
 }
 
 .user-email {
-  color: rgba(226, 232, 240, 0.92);
+  color: white;
   font-size: 15px;
-  font-weight: 700;
-  line-height: 1;
+  font-weight: 600;
+
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
 }
 
 .logout-btn {
-  height: 40px;
-  padding: 0 18px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 24px;
+
+  border: none;
   border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: rgba(99, 102, 241, 0.55);
+
+  background: linear-gradient(
+    135deg,
+    #5b7cff,
+    #7c6cff
+  );
+
   color: white;
   font-size: 15px;
-  font-weight: 800;
-  line-height: 1;
-  cursor: pointer;
-}
+  font-weight: 700;
 
-.logout-btn:hover {
-  background: rgba(99, 102, 241, 0.75);
+  cursor: pointer;
 }
