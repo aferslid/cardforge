@@ -1,3 +1,5 @@
+console.log("INDEX STARTED");
+
 require("dotenv").config();
 
 console.log("Gemini key loaded:", process.env.GEMINI_API_KEY ? "YES" : "NO");
@@ -545,6 +547,7 @@ app.post("/pdf-extract", upload.single("pdf"), async (req, res) => {
 });
 
 console.log("ROUTES VERSION: health-check-a3afe11");
+console.log("ABOUT TO LISTEN");
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
