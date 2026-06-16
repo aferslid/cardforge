@@ -1941,7 +1941,7 @@ function startReview(quiz) {
             </h2>
 
             <p className="muted">
-              Cette action est définitive.
+              This action is definitive.
             </p>
 
             <div className="modal-actions">
@@ -2021,11 +2021,11 @@ function ReviewScreen({ quiz, onBack }) {
 
       {card.type === "info" ? (
         <button className="review-primary" onClick={next}>
-          Carte suivante
+          Next card
         </button>
       ) : !showAnswer ? (
         <button className="review-primary" onClick={() => setShowAnswer(true)}>
-          Voir la réponse
+          See answer
         </button>
       ) : (
         <div className="actions">
