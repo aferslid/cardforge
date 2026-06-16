@@ -662,7 +662,7 @@ function App() {
       .eq("id", projectId);
 
     if (error) {
-      console.error("Erreur renommage projet:", error);
+      console.error("Error project renaming:", error);
       return;
     }
 
@@ -721,7 +721,7 @@ function App() {
       .eq("id", quizId);
 
     if (error) {
-      console.error("Erreur renommage quiz:", error);
+      console.error("Error deck renaming:", error);
       return;
     }
 
@@ -747,7 +747,7 @@ function App() {
       .eq("id", renameModal.id);
 
     if (error) {
-      console.error("Erreur renommage projet:", error);
+      console.error("Error project renaming:", error);
       return;
     }
 
@@ -767,7 +767,7 @@ function App() {
       .eq("id", renameModal.id);
 
     if (error) {
-      console.error("Erreur renommage quiz:", error);
+      console.error("Error deck renaming:", error);
       return;
     }
 
@@ -1041,11 +1041,11 @@ function startReview(quiz) {
                             setOpenProjectMenu(null);
                           }}
                         >
-                          ✏️ Renommer
+                          ✏️ Rename
                         </button>
 
                         <button type="button" onClick={(e) => e.stopPropagation()}>
-                          🖼 Changer l'image
+                          🖼 Change picture
                         </button>
 
                         <button
@@ -1196,11 +1196,11 @@ function startReview(quiz) {
                           setOpenDeckMenu(null);
                         }}
                       >
-                        ✏️ Renommer
+                        ✏️ Rename
                       </button>
 
                       <button type="button" onClick={(e) => e.stopPropagation()}>
-                        🖼 Changer l'image
+                        🖼 Change picture
                       </button>
 
                       <button
@@ -1212,7 +1212,7 @@ function startReview(quiz) {
                           setOpenDeckMenu(null);
                         }}
                       >
-                        🗑 Supprimer
+                        🗑 Delete
                       </button>
                     </div>
                   )}
