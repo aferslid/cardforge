@@ -1357,3 +1357,20 @@ button {
   color: rgba(255,255,255,0.85);
   font-size: 16px;
 }
+
+.app-footer {
+  margin: 80px auto 32px;
+  padding: 0 24px;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+  color: rgba(226, 232, 240, 0.55);
+  font-size: 13px;
+}
+
+.app-footer span:first-child {
+  color: rgba(226, 232, 240, 0.75);
+  font-weight: 700;
+}

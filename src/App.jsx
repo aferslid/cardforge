@@ -1986,7 +1986,13 @@ function startReview(quiz) {
         </div>
       )}
 
+      <footer className="app-footer">
+        <span>CardForge</span>
+        <span>Create flashcards from text, PDFs and websites.</span>
+      </footer>
+
     </div>
+  
   );
 }
 
