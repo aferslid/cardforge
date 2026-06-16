@@ -975,19 +975,20 @@ function startReview(quiz) {
   return (
     <div className="app">
 
-      <h1 style={{ color: "red", fontSize: "20px", zIndex: 9999 }}>
-        {session.user.email}
-      </h1>
+      <div className="user-bar">
+        <span className="user-email">{session.user.email}</span>
+
+        <button
+          className="logout-btn"
+          onClick={async () => {
+            await supabase.auth.signOut();
+            window.location.reload();
+          }}
+        >
+          Déconnexion
+        </button>
+      </div>
       
-      <button
-        className="logout-btn"
-        onClick={async () => {
-          await supabase.auth.signOut();
-          window.location.reload();
-        }}
-      >
-        Déconnexion
-      </button>
       
       {screen === "home" && (
         <main>

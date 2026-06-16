@@ -1323,17 +1323,42 @@ button {
   width: 42px !important;
 }
 
-.logout-btn {
+
+.user-bar {
   position: fixed;
-  top: 22px;
-  right: 22px;
+  top: 18px;
+  right: 24px;
   z-index: 9999;
-  background: rgba(255, 255, 255, 0.12);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 14px;
   border-radius: 999px;
-  padding: 10px 16px;
-  font-size: 14px;
+
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  backdrop-filter: blur(14px);
+}
+
+.user-email {
+  color: rgba(226, 232, 240, 0.9);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.logout-btn {
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(99, 102, 241, 0.18);
+  color: white;
+  font-size: 13px;
   font-weight: 700;
-  backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: rgba(99, 102, 241, 0.32);
 }
