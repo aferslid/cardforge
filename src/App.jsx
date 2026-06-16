@@ -142,7 +142,7 @@ function App() {
             cards (*)
           )
         `)
-        .eq("user_id", session.user.id)
+        .or(user_id.eq.${session.user.id},is_public.eq.true)
         .order("created_at", { ascending: false });
 
       if (error) {
