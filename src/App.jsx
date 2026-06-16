@@ -985,7 +985,7 @@ function startReview(quiz) {
             window.location.reload();
           }}
         >
-          Déconnexion
+          Log out
         </button>
       </div>
       
