@@ -282,7 +282,7 @@ function App() {
         .insert(cardsToInsert);
 
       if (cardsError) {
-        console.error("Erreur création cartes:", cardsError);
+        console.error("Error card creation:", cardsError);
       }
     }
 
@@ -437,7 +437,7 @@ function App() {
         .select();
 
       if (cardsError) {
-        console.error("Erreur création cartes:", cardsError);
+        console.error("Error card creation:", cardsError);
         return;
       }
 
@@ -631,7 +631,7 @@ function App() {
   async function deleteProject(projectId) {
     if (
       !window.confirm(
-        "Supprimer ce projet, tous les quiz et toutes les cartes ?"
+        "Delete this project, decks and cards?"
       )
     ) {
       return;
@@ -678,7 +678,7 @@ function App() {
   async function deleteQuiz(quizId) {
     if (
       !window.confirm(
-        "Supprimer ce quiz et toutes ses cartes ?"
+        "Delete this deck and all the cards?"
       )
     ) {
       return;
@@ -847,7 +847,7 @@ function App() {
       .select();
 
     if (cardsError) {
-      console.error("Erreur création cartes IA:", cardsError);
+      console.error("Error AI card creation:", cardsError);
       return;
     }
 
@@ -1067,7 +1067,7 @@ function startReview(quiz) {
                         <h3>{project.name}</h3>
                         <p>
                           {project.quizzes.length} deck
-                          {project.quizzes.length > 1 ? "s" : ""} · {totalCards} cartes
+                          {project.quizzes.length > 1 ? "s" : ""} · {totalCards} cards
                         </p>
                       </div>
                     </div>
@@ -1076,7 +1076,7 @@ function startReview(quiz) {
                       <div className="last-deck-card">
                         <div>
                           <strong>{lastQuiz.name} </strong>
-                          <span>{lastQuiz.cards?.length || 0} cartes</span>
+                          <span>{lastQuiz.cards?.length || 0} cards</span>
                         </div>
 
                         <span className="continue-pill">Continue →</span>
@@ -1747,7 +1747,7 @@ function startReview(quiz) {
           <section className="quiz-hero-card">
             <span className="eyebrow">Deck</span>
             <h1>{selectedQuiz.name}</h1>
-            <p>{selectedProject.name} · {selectedQuiz.cards.length} cartes</p>
+            <p>{selectedProject.name} · {selectedQuiz.cards.length} cards</p>
           </section>
 
           <section>
