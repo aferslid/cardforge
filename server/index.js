@@ -177,11 +177,13 @@ app.post("/extract", async (req, res) => {
     let cardCandidates = [];
 
     if (importType === "plonkit") {
-    cardCandidates = await extractPlonkitCards(page);
+      cardCandidates = await extractPlonkitCards(page);
     } else if (importType === "wikipedia") {
-    cardCandidates = await extractWikipediaGalleryCards(page);
+      cardCandidates = await extractWikipediaGalleryCards(page);
+    } else if (importType === "us50-license-plates") {
+      cardCandidates = await extractUS50LicensePlates(page);
     } else {
-    cardCandidates = await extractGalleryCards(page);
+      cardCandidates = await extractGalleryCards(page);
     }
 
     await browser.close();
@@ -392,6 +394,38 @@ async function extractWikipediaGalleryCards(page) {
     });
 
     return cards.slice(0, 300);
+  });
+}
+
+async function extractUS50LicensePlates(page) {
+  return await page.evaluate(() => {
+    const cards = [];
+
+    document.querySelectorAll(".sealsRow .col-xs-6, .sealsRow .col-md-3").forEach((box) => {
+      const state = box.querySelector("span.center.bold")?.innerText?.trim();
+      const img = box.querySelector("img");
+      const link = box.querySelector("a")?.href;
+
+      if (!state || !img) return;
+
+      let image = img.currentSrc || img.src;
+
+      if (image.startsWith("/")) {
+        image = window.location.origin + image;
+      }
+
+      image = image.replace("-thumb", "");
+
+      cards.push({
+        image,
+        title: "",
+        content: state,
+        cardType: "quiz",
+        sourceUrl: link || "",
+      });
+    });
+
+    return cards.slice(0, 60);
   });
 }
 
