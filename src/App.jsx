@@ -153,6 +153,7 @@ function App() {
       setProjects(
         data.map((project) => ({
           id: project.id,
+          user_id: project.user_id,
           name: project.name,
           coverImage: project.cover_image || "",
           quizzes: (project.quizzes || [])
@@ -165,6 +166,7 @@ function App() {
             )
             .map((quiz) => ({
             id: quiz.id,
+            user_id: quiz.user_id,
             name: quiz.title,
               title: quiz.title,
             coverImage: quiz.cover_image || "",
