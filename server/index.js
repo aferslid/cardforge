@@ -544,6 +544,8 @@ app.post("/pdf-extract", upload.single("pdf"), async (req, res) => {
   }
 });
 
+console.log("ROUTES VERSION: health-check-a3afe11");
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
