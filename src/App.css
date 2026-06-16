@@ -1324,54 +1324,20 @@ button {
 }
 
 
-.user-bar {
+.logout-btn {
   position: fixed;
   top: 18px;
   right: 24px;
   z-index: 9999;
 
-  display: flex;
-  align-items: center;
-
-  background: rgba(15,23,42,.8);
-  border: 1px solid rgba(148,163,184,.25);
+  padding: 12px 20px;
   border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
 
-  padding: 8px;
-}
-
-.user-email {
+  background: rgba(99, 102, 241, 0.9);
   color: white;
-  font-size: 15px;
-  font-weight: 600;
 
-  padding: 0 20px;
-
-  display: flex;
-  align-items: center;
-}
-
-.logout-btn {
-  height: 44px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 0 24px;
-
-  border: none;
-  border-radius: 999px;
-
-  background: linear-gradient(
-    135deg,
-    #5b7cff,
-    #7c6cff
-  );
-
-  color: white;
   font-size: 15px;
   font-weight: 700;
-
   cursor: pointer;
 }

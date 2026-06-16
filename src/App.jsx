@@ -975,19 +975,15 @@ function startReview(quiz) {
   return (
     <div className="app">
 
-      <div className="user-bar">
-        <span className="user-email">{session.user.email}</span>
-
-        <button
-          className="logout-btn"
-          onClick={async () => {
-            await supabase.auth.signOut();
-            window.location.reload();
-          }}
-        >
-          Log out
-        </button>
-      </div>
+      <button
+        className="logout-btn"
+        onClick={async () => {
+          await supabase.auth.signOut();
+          window.location.reload();
+        }}
+      >
+        Log out
+      </button>
       
       
       {screen === "home" && (
