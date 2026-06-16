@@ -1761,7 +1761,7 @@ function startReview(quiz) {
                   className="action-card"
                   onClick={() => startReview(selectedQuiz)}
                 >
-                  <strong>🔥 Réviser</strong>
+                  <strong>🔥 Review</strong>
                   <span>Start learning session</span>
                 </button>
 
