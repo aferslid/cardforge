@@ -1264,7 +1264,7 @@ function startReview(quiz) {
                 className={`creation-group-card ${creationGroup === "auto" ? "active" : ""}`}
                 onClick={() => setCreationGroup("auto")}
               >
-                <strong>⚡ Import automatique</strong>
+                <strong>⚡ Automatic import</strong>
                 <span>URL, PDF, Plonkit, ChatGPT</span>
               </button>
 
@@ -1272,8 +1272,8 @@ function startReview(quiz) {
                 className={`creation-group-card ${creationGroup === "manual" ? "active" : ""}`}
                 onClick={() => setCreationGroup("manual")}
               >
-                <strong>🖍 Surlignage</strong>
-                <span>Choisis exactement ce qui doit être retenu</span>
+                <strong>🖍 Highlight</strong>
+                <span>Choose exactly what you want to remember</span>
               </button>
 
               <button
@@ -1283,8 +1283,8 @@ function startReview(quiz) {
                   setSourceMode("ai");
                 }}
               >
-                <strong>🤖 IA</strong>
-                <span>Décris ce que tu veux apprendre</span>
+                <strong>🤖 AI</strong>
+                <span>Describe what you want to learn</span>
               </button>
             </div>
 
