@@ -28,6 +28,14 @@ app.use(cors({
 }));
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("CardForge API is alive");
+});
+
+app.get("/health", (req, res) => {
+  res.json({ ok: true, time: new Date().toISOString() });
+});
+
 app.post("/extract", async (req, res) => {
   let browser;
 
