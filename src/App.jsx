@@ -155,7 +155,13 @@ function App() {
           id: project.id,
           name: project.name,
           coverImage: project.cover_image || "",
-          quizzes: (project.quizzes || []).map((quiz) => ({
+          quizzes: (project.quizzes || [])
+            .filter(
+              (quiz) =>
+                quiz.user_id === session.user.id ||
+                quiz.is_public === true
+            )
+            .map((quiz) => ({
             id: quiz.id,
             name: quiz.title,
               title: quiz.title,
