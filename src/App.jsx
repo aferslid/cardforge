@@ -975,11 +975,10 @@ function startReview(quiz) {
   return (
     <div className="app">
 
-      <span className="user-email">{session.user.email}</span>
-      <button onClick={() => supabase.auth.signOut()}>
-        Déconnexion
-      </button>
-
+      <h1 style={{ color: "red", fontSize: "20px", zIndex: 9999 }}>
+        {session.user.email}
+      </h1>
+      
       <button
         className="logout-btn"
         onClick={async () => {
