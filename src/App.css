@@ -1393,3 +1393,23 @@ button {
   font-size: 17px;
   margin-bottom: 18px;
 }
+
+.footer-links {
+  margin-top: 80px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-links button {
+  background: transparent;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.footer-links button:hover {
+  color: white;
+}

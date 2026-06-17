@@ -2021,6 +2021,12 @@ function startReview(quiz) {
         <span>Create flashcards from text, PDFs and websites.</span>
       </footer>
 
+      <footer className="footer-links">
+        <button onClick={() => setScreen("about")}>About</button>
+        <button onClick={() => setScreen("privacy")}>Privacy</button>
+        <button onClick={() => setScreen("contact")}>Contact</button>
+      </footer>
+
     </div>
   
   );
