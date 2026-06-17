@@ -1017,23 +1017,7 @@ function startReview(quiz) {
         }}
       >
         Log out
-      </button>
-
-      <button
-        onClick={() => setScreen("about")}
-        style={{ marginLeft: "10px" }}
-      >
-        About
-      </button>
-
-      <button onClick={() => setScreen("privacy")}>
-        Privacy
-      </button>
-
-      <button onClick={() => setScreen("contact")}>
-        Contact
-      </button>
-      
+      </button>  
       
       {screen === "home" && (
         <main>
