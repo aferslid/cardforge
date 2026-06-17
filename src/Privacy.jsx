@@ -28,7 +28,7 @@ export default function Privacy() {
       </p>
 
       <p>
-        tonemail@email.com
+        aferslidou@gmail.com
       </p>
 
     </div>

@@ -20,7 +20,7 @@ export default function Contact() {
       </p>
 
       <p>
-        tonemail@email.com
+        aferslidou@gmail.com
       </p>
 
     </div>
