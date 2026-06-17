@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { supabase } from "./supabaseClient";
 import AuthComponent from "./Auth";
+import About from "./About";
 
 const initialProjects = [];
 
@@ -984,6 +985,10 @@ if (!session) {
   return <AuthComponent />;
 }
 
+if (screen === "about") {
+  return <About />;
+}
+
 function startReview(quiz) {
   const shuffled = [...quiz.cards].sort(() => Math.random() - 0.5);
   setReviewCards(shuffled);
@@ -1002,6 +1007,13 @@ function startReview(quiz) {
         }}
       >
         Log out
+      </button>
+
+      <button
+        onClick={() => setScreen("about")}
+        style={{ marginLeft: "10px" }}
+      >
+        About
       </button>
       
       
