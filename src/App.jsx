@@ -3,6 +3,8 @@ import "./App.css";
 import { supabase } from "./supabaseClient";
 import AuthComponent from "./Auth";
 import About from "./About";
+import Privacy from "./Privacy";
+import Contact from "./Contact";
 
 const initialProjects = [];
 
@@ -989,6 +991,14 @@ if (screen === "about") {
   return <About />;
 }
 
+if (screen === "privacy") {
+  return <Privacy />;
+}
+
+if (screen === "contact") {
+  return <Contact />;
+}
+
 function startReview(quiz) {
   const shuffled = [...quiz.cards].sort(() => Math.random() - 0.5);
   setReviewCards(shuffled);
@@ -1014,6 +1024,14 @@ function startReview(quiz) {
         style={{ marginLeft: "10px" }}
       >
         About
+      </button>
+
+      <button onClick={() => setScreen("privacy")}>
+        Privacy
+      </button>
+
+      <button onClick={() => setScreen("contact")}>
+        Contact
       </button>
       
       
