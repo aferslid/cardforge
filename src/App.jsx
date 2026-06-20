@@ -133,10 +133,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!session?.user) return;
-
+    
     async function loadProjects() {
-      const { data, error } = await supabase
+      
+      let query = supabase
         .from("projects")
         .select(`
           *,
@@ -144,9 +144,17 @@ function App() {
             *,
             cards (*)
           )
-        `)
-        .or(`user_id.eq.${session.user.id},is_public.eq.true`)
-        .order("created_at", { ascending: false });
+        `);
+
+      if (session) {
+        query = query.or(`user_id.eq.${session.user.id},is_public.eq.true`);
+      } else {
+        query = query.eq("is_public", true);
+      }
+
+      const { data, error } = await query.order("created_at", {
+        ascending: false,
+      });
 
       if (error) {
         console.error("Error loading projects:", error);
@@ -161,11 +169,8 @@ function App() {
           coverImage: project.cover_image || "",
           quizzes: (project.quizzes || [])
             .filter((quiz) =>
-              quiz.user_id === session.user.id ||
-              (
-                quiz.is_public &&
-                quiz.user_id === "37ab8e4a-5f60-44ea-836d-a3b6e3e4b2f3"
-              )
+              (session && quiz.user_id === session.user.id) ||
+              quiz.is_public
             )
             .map((quiz) => ({
             id: quiz.id,
@@ -983,7 +988,9 @@ function addHighlightCard() {
   setSelectedHighlight("");
 }
 
-if (!session) {
+const isGuest = !session;
+
+if (screen === "login") {
   return <AuthComponent />;
 }
 
@@ -1009,15 +1016,24 @@ function startReview(quiz) {
   return (
     <div className="app">
 
-      <button
-        className="logout-btn"
-        onClick={async () => {
-          await supabase.auth.signOut();
-          window.location.reload();
-        }}
-      >
-        Log out
-      </button>  
+      {session ? (
+        <button
+          className="logout-btn"
+          onClick={async () => {
+            await supabase.auth.signOut();
+            window.location.reload();
+          }}
+        >
+          Log out
+        </button>
+      ) : (
+        <button
+          className="logout-btn"
+          onClick={() => setScreen("login")}
+        >
+          Sign in
+        </button>
+      )}
       
       {screen === "home" && (
         <main>
