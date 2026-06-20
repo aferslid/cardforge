@@ -212,7 +212,10 @@ function App() {
 
   async function createProject() {
     if (!newProjectName.trim()) return;
-    if (!session?.user) return;
+    if (!session) {
+      alert("Sign in to create and manage your own decks.");
+      return;
+    }
 
     const { data, error } = await supabase
       .from("projects")
@@ -247,7 +250,10 @@ function App() {
     }
 
     setQuizNameError("");
-    if (!session?.user) return;
+    if (!session) {
+      alert("Sign in to create and manage your own decks.");
+      return;
+    }
 
     let cards = [];
 
@@ -503,6 +509,10 @@ function App() {
   }
 
   async function deleteCard(cardId) {
+    if (!session) {
+      alert("Sign in to create and manage your own decks.");
+      return;
+    }
     const { error } = await supabase
       .from("cards")
       .delete()
@@ -533,6 +543,10 @@ function App() {
   }
 
   async function clearCardText(cardId) {
+    if (!session) {
+      alert("Sign in to create and manage your own decks.");
+      return;
+    }
     const { error } = await supabase
       .from("cards")
       .update({
@@ -578,6 +592,10 @@ function App() {
   }
 
   async function editCard(card) {
+    if (!session) {
+      alert("Sign in to create and manage your own decks.");
+      return;
+    }
     const newQuestion = window.prompt(
       "Nouvelle question :",
       card.question || card.title || ""
@@ -627,6 +645,10 @@ function App() {
   }
 
   async function setCardAsDeckCover(card) {
+    if (!session) {
+      alert("Sign in to create and manage your own decks.");
+      return;
+    }
     if (!selectedQuiz || !card.image) return;
 
     const { error } = await supabase
@@ -653,6 +675,10 @@ function App() {
   }
 
   async function deleteProject(projectId) {
+    if (!session) {
+      alert("Sign in to create and manage your own decks.");
+      return;
+    }
     if (
       !window.confirm(
         "Delete this project, decks and cards?"
@@ -676,6 +702,10 @@ function App() {
   }
 
   async function renameProject(projectId, currentName) {
+    if (!session) {
+      alert("Sign in to create and manage your own decks.");
+      return;
+    }
     const newName = window.prompt("New project name:", currentName);
 
     if (!newName || !newName.trim()) return;
@@ -700,6 +730,10 @@ function App() {
   }
 
   async function deleteQuiz(quizId) {
+    if (!session) {
+      alert("Sign in to create and manage your own decks.");
+      return;
+    }
     if (
       !window.confirm(
         "Delete this deck and all the cards?"
@@ -735,6 +769,10 @@ function App() {
   }
 
   async function renameQuiz(quizId, currentName) {
+    if (!session) {
+      alert("Sign in to create and manage your own decks.");
+      return;
+    }
     const newName = window.prompt("Nouveau nom du quiz :", currentName);
 
     if (!newName || !newName.trim()) return;
@@ -762,6 +800,10 @@ function App() {
   }
 
   async function saveRename() {
+    if (!session) {
+      alert("Sign in to create and manage your own decks.");
+      return;
+    }
   if (!renameModal || !renameValue.trim()) return;
 
   if (renameModal.type === "project") {
@@ -816,6 +858,10 @@ function App() {
 }
 
   async function generateWithAI() {
+    if (!session) {
+      alert("Sign in to create and manage your own decks.");
+      return;
+    }
   if (!sourceText.trim()) return;
 
   setIsGeneratingAI(true);
@@ -1069,7 +1115,7 @@ function startReview(quiz) {
                     }}
                     onClick={() => openProject(project.id)}
                   >
-                    {project.user_id === session.user.id && (
+                    {session && project.user_id === session.user.id && (
                       <button
                         type="button"
                         className="card-menu-button"
@@ -1081,7 +1127,7 @@ function startReview(quiz) {
                         ...
                       </button>
                     )}
-                    {project.user_id === session.user.id && openProjectMenu === project.id && (
+                    {session && project.user_id === session.user.id && openProjectMenu === project.id && (
                       <div className="card-menu" onClick={(e) => e.stopPropagation()}>
                         <button
                           type="button"
@@ -1142,6 +1188,12 @@ function startReview(quiz) {
           <button
             className="floating-add"
             onClick={async () => {
+
+              if (!session) {
+                alert("Sign in to create your own decks.");
+                return;
+              }
+
               const name = prompt("Project name?");
               if (!name || !name.trim()) return;
 
@@ -1225,7 +1277,7 @@ function startReview(quiz) {
                     setScreen("quiz");
                   }}
                 >
-                  {quiz.user_id === session.user.id && (
+                  {session && quiz.user_id === session.user.id && (
                     <button
                       type="button"
                       className="card-menu-button"
@@ -1238,7 +1290,7 @@ function startReview(quiz) {
                     </button>
                   )}
 
-                  {quiz.user_id === session.user.id && openDeckMenu === quiz.id && (
+                  {session && quiz.user_id === session.user.id && openDeckMenu === quiz.id && (
                     <div className="card-menu" onClick={(e) => e.stopPropagation()}>
                       <button
                         type="button"
