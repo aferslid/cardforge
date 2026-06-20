@@ -1245,9 +1245,14 @@ function startReview(quiz) {
             </div>
           </section>
 
-          <button className="primary create-main" onClick={() => setScreen("createQuiz")}>
-            + New deck
-          </button>
+          {session && (
+            <button
+              className="primary create-main"
+              onClick={() => setScreen("createQuiz")}
+            >
+              + New deck
+            </button>
+          )}
 
           <section className="section-block">
             <div className="section-header">
