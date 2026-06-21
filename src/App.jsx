@@ -1058,6 +1058,9 @@ function startReview(quiz) {
   setScreen("review");
 }
 
+const canEditSelectedQuiz =
+  session && selectedQuiz && selectedQuiz.user_id === session.user.id;
+
 
   return (
     <div className="app">
@@ -1883,13 +1886,15 @@ function startReview(quiz) {
                   <span>See all cards from deck</span>
                 </button>
 
-                <button
-                  className="action-card"
-                  onClick={() => setQuizViewMode("edit")}
-                >
-                  <strong>🛠 Edit</strong>
-                  <span>Delete or clean cards</span>
-                </button>
+                {canEditSelectedQuiz && (
+                  <button
+                    className="action-card"
+                    onClick={() => setQuizViewMode("edit")}
+                  >
+                    <strong>🛠 Edit</strong>
+                    <span>Delete or clean cards</span>
+                  </button>
+                )}
               </div>
             )}
 
@@ -1924,7 +1929,7 @@ function startReview(quiz) {
               </div>
             ))}
 
-            {quizViewMode === "edit" && selectedQuiz.cards.map((card) => (
+            {canEditSelectedQuiz && quizViewMode === "edit" && selectedQuiz.cards.map((card) => (
               <div key={card.id} className="card-row">
                 {card.image && (
                   <img
@@ -1987,6 +1992,7 @@ function startReview(quiz) {
             cards: reviewCards.length > 0 ? reviewCards : selectedQuiz.cards,
           }}
           onBack={() => setScreen("quiz")}
+          setZoomImage={setZoomImage}
         />
       )}
 
@@ -2089,7 +2095,7 @@ function startReview(quiz) {
   );
 }
 
-function ReviewScreen({ quiz, onBack }) {
+function ReviewScreen({ quiz, onBack, setZoomImage }) {
   const [index, setIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
 
