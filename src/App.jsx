@@ -1058,6 +1058,14 @@ function startReview(quiz) {
   setScreen("review");
 }
 
+async function trackDeckView(quizId) {
+  if (!quizId) return;
+
+  await supabase.from("deck_views").insert({
+    quiz_id: quizId,
+  });
+}
+
 const canEditSelectedQuiz =
   session && selectedQuiz && selectedQuiz.user_id === session.user.id;
 
@@ -1280,6 +1288,7 @@ const canEditSelectedQuiz =
                     backgroundPosition: "center",
                   }}
                   onClick={() => {
+                    trackDeckView(quiz.id);
                     setSelectedQuizId(quiz.id);
                     setQuizViewMode("overview");
                     setScreen("quiz");
