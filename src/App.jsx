@@ -10,9 +10,7 @@ const initialProjects = [];
 
 function App() {
   const [projects, setProjects] = useState([]);
-  const [screen, setScreen] = useState(
-    localStorage.getItem("cardforge-screen") || "home"
-  );
+  const [screen, setScreen] = useState("home");
 
   const [selectedProjectId, setSelectedProjectId] = useState(
     localStorage.getItem("cardforge-selected-project") || null
@@ -87,9 +85,7 @@ function App() {
     return () => subscription.unsubscribe();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("cardforge-screen", screen);
-  }, [screen]);
+  
 
   useEffect(() => {
     if (selectedProjectId) {
