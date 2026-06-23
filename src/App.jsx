@@ -282,6 +282,7 @@ function App() {
 
     const newQuiz = {
       id: data.id,
+      user_id: data.user_id,
       name: data.title,
       sourceMode,
       sourceText,
@@ -480,6 +481,7 @@ function App() {
 
     const newQuiz = {
       id: quizData.id,
+      user_id: data.user_id,
       name: quizData.title,
       sourceMode: "url",
       url,
@@ -932,6 +934,7 @@ function App() {
 
     const newQuiz = {
       id: quizData.id,
+      user_id: data.user_id,
       name: quizData.title,
       title: quizData.title,
       sourceMode: "ai",
