@@ -481,7 +481,7 @@ function App() {
 
     const newQuiz = {
       id: quizData.id,
-      user_id: data.user_id,
+      user_id: quizData.user_id,
       name: quizData.title,
       sourceMode: "url",
       url,
