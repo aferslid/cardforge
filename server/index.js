@@ -2,6 +2,9 @@ console.log("INDEX STARTED");
 
 require("dotenv").config();
 
+const { Readability } = require("@mozilla/readability");
+const { JSDOM } = require("jsdom");
+
 console.log("Gemini key loaded:", process.env.GEMINI_API_KEY ? "YES" : "NO");
 
 const { GoogleGenAI } = require("@google/genai");
@@ -89,6 +92,27 @@ app.post("/extract", async (req, res) => {
     await page.waitForTimeout(8000);
 
     const title = await page.title();
+
+    const rawHtml = await page.content();
+
+    let readerArticle = null;
+
+    try {
+      const dom = new JSDOM(rawHtml, { url });
+      const reader = new Readability(dom.window.document);
+      const article = reader.parse();
+
+      if (article) {
+        readerArticle = {
+          title: article.title || title,
+          html: article.content || "",
+          textContent: article.textContent || "",
+          excerpt: article.excerpt || "",
+        };
+      }
+    } catch (error) {
+      console.log("READABILITY ERROR:", error.message);
+    }
 
     const bodyText = await page.locator("body").innerText().catch(() => "");
 
@@ -194,6 +218,7 @@ app.post("/extract", async (req, res) => {
         paragraphs,
         images,
         cardCandidates,
+        readerArticle,
     });
   } catch (error) {
     if (browser) await browser.close();
