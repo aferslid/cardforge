@@ -514,6 +514,95 @@ function App() {
     setScreen("quiz");
   }
 
+  async function createQuizFromManualCards() {
+  if (!selectedProject || manualCards.length === 0) return;
+
+  if (!newQuizName.trim()) {
+    setQuizNameError("Donne un nom au quiz avant de créer le deck.");
+    return;
+  }
+
+  if (!session?.user) return;
+
+  setQuizNameError("");
+
+  const { data: quizData, error: quizError } = await supabase
+    .from("quizzes")
+    .insert({
+      project_id: selectedProject.id,
+      user_id: session.user.id,
+      is_public:
+        session.user.id === "37ab8e4a-5f60-44ea-836d-a3b6e3e4b2f3" &&
+        selectedProject.id === "4acdbbff-1746-4bd8-9f71-cac9faa25cb4",
+      title: newQuizName.trim(),
+    })
+    .select()
+    .single();
+
+  if (quizError) {
+    console.error("Erreur création quiz manuel:", quizError);
+    return;
+  }
+
+  const cardsToInsert = manualCards.map((card) => ({
+    quiz_id: quizData.id,
+    type: card.type || "info",
+    title: card.title || "",
+    question: card.question || "",
+    answer: card.answer || "",
+    content: card.content || card.answer || "",
+    image: card.image || "",
+  }));
+
+  const { data: insertedCards, error: cardsError } = await supabase
+    .from("cards")
+    .insert(cardsToInsert)
+    .select();
+
+  if (cardsError) {
+    console.error("Error manual card creation:", cardsError);
+    return;
+  }
+
+  const savedCards = insertedCards.map((card) => ({
+    id: card.id,
+    type: card.type || "info",
+    title: card.title || "",
+    question: card.question || "",
+    answer: card.answer || "",
+    content: card.content || card.answer || "",
+    image: card.image || "",
+  }));
+
+  const newQuiz = {
+    id: quizData.id,
+    user_id: quizData.user_id,
+    name: quizData.title,
+    title: quizData.title,
+    sourceMode,
+    cards: savedCards,
+  };
+
+  setProjects(
+    projects.map((project) =>
+      project.id === selectedProject.id
+        ? { ...project, quizzes: [newQuiz, ...project.quizzes] }
+        : project
+    )
+  );
+
+  setSelectedQuizId(newQuiz.id);
+  setManualCards([]);
+  setHighlightCards([]);
+  setHighlightedRanges([]);
+  setSelectedHighlight("");
+  setNewQuizName("");
+  setUrl("");
+  setExtractedPage(null);
+  setQuizViewMode("edit");
+  setScreen("quiz");
+}
+
   async function deleteCard(cardId) {
     if (!session) {
       alert("Sign in to create and manage your own decks.");
@@ -1782,7 +1871,7 @@ const canEditSelectedQuiz =
                           <p>{selectedHighlight}</p>
 
                           <button type="button" onClick={addHighlightCard}>
-                            Add as flashcard #{manualCards.length + 1}
+                            Create flashcard #{manualCards.length + 1}
                           </button>
                         </div>
                       )}
@@ -1798,6 +1887,16 @@ const canEditSelectedQuiz =
                             </div>
                           ))}
                         </div>
+                      )}
+
+                      {manualCards.length > 0 && (
+                        <button
+                          type="button"
+                          className="primary"
+                          onClick={createQuizFromManualCards}
+                        >
+                          Create deck with {manualCards.length} flashcards
+                        </button>
                       )}
                     </>
                   )}
