@@ -1532,3 +1532,24 @@ h4 {
     min-height: 48px;
   }
 }
+
+.reading-box {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 18px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  user-select: text;
+}
+
+.created-cards {
+  margin-top: 16px;
+}
+
+.mini-card {
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 8px;
+}

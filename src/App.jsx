@@ -68,6 +68,8 @@ function App() {
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
   const selectedQuiz = selectedProject?.quizzes.find((q) => q.id === selectedQuizId);
+  const [highlightCards, setHighlightCards] = useState([]);
+  const [highlightedRanges, setHighlightedRanges] = useState([]);
 
   const [session, setSession] = useState(null);
 
@@ -253,7 +255,13 @@ function App() {
 
     let cards = [];
 
-    if (sourceMode === "highlight" || sourceMode === "manual" || sourceMode === "url") {
+    if (
+      sourceMode === "highlight" ||
+      sourceMode === "manual" ||
+      sourceMode === "url" ||
+      sourceMode === "highlight-url" ||
+      sourceMode === "highlight-text"
+    ) {
       cards = manualCards;
     }
 
@@ -1022,14 +1030,27 @@ function handleTextSelection() {
 function addHighlightCard() {
   if (!selectedHighlight.trim()) return;
 
+  const number = highlightCards.length + 1;
+
   const newCard = {
     id: Date.now(),
     type: "info",
-    title: "",
+    title: `Flashcard ${number}`,
     content: selectedHighlight,
   };
 
-  setManualCards((prev) => [newCard, ...prev]);
+  setHighlightCards((prev) => [...prev, newCard]);
+  setManualCards((prev) => [...prev, newCard]);
+
+  setHighlightedRanges((prev) => [
+    ...prev,
+    {
+      id: newCard.id,
+      text: selectedHighlight,
+      number,
+    },
+  ]);
+
   setSelectedHighlight("");
 }
 
@@ -1675,18 +1696,103 @@ const canEditSelectedQuiz =
                   value={sourceText}
                   onChange={(e) => setSourceText(e.target.value)}
                 />
+
+                {sourceText && (
+                  <div
+                    className="reading-box"
+                    onMouseUp={handleTextSelection}
+                  >
+                    {sourceText}
+                  </div>
+                )}
+
+                {selectedHighlight && (
+                  <div className="import-result">
+                    <strong>Selection</strong>
+                    <p>{selectedHighlight}</p>
+
+                    <button type="button" onClick={addHighlightCard}>
+                      Add as flashcard #{highlightCards.length + 1}
+                    </button>
+                  </div>
+                )}
+
+                {highlightCards.length > 0 && (
+                  <div className="created-cards">
+                    <strong>{highlightCards.length} flashcard(s) created</strong>
+
+                    {highlightCards.map((card, index) => (
+                      <div key={card.id} className="mini-card">
+                        <span>Flashcard {index + 1}</span>
+                        <small>{card.content}</small>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </>
             )}
 
             {creationGroup === "manual" && sourceMode === "highlight-url" && (
-              <div className="preview-box">
-                <strong>🖍 URL highlight</strong>
-                <p>
-                  Soon: open a website in CardForge, select the parts of interest,
-                  to transform them into cards.
-                </p>
-              </div>
-            )}
+                <>
+                  <div className="preview-box">
+                    <strong>🖍 URL highlight</strong>
+                    <p>Paste a URL, import the readable text, then highlight what you want to turn into cards.</p>
+                  </div>
+
+                  <label>Website URL</label>
+                  <input
+                    placeholder="https://en.wikipedia.org/wiki/French_Revolution"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                  />
+
+                  <button type="button" onClick={extractUrl}>
+                    {isExtracting ? "Importing..." : "Import page"}
+                  </button>
+
+                  {extractError && <p className="error-message">{extractError}</p>}
+
+                  {extractedPage && (
+                    <>
+                      <div className="import-result">
+                        <strong>{extractedPage.title}</strong>
+                        <p>Select text below to create flashcards.</p>
+                      </div>
+
+                      <div
+                        className="reading-box"
+                        onMouseUp={handleTextSelection}
+                      >
+                        {(extractedPage.paragraphs || []).join("\n\n")}
+                      </div>
+
+                      {selectedHighlight && (
+                        <div className="import-result">
+                          <strong>Selection</strong>
+                          <p>{selectedHighlight}</p>
+
+                          <button type="button" onClick={addHighlightCard}>
+                            Add as flashcard #{manualCards.length + 1}
+                          </button>
+                        </div>
+                      )}
+
+                      {manualCards.length > 0 && (
+                        <div className="created-cards">
+                          <strong>{manualCards.length} flashcard(s) created</strong>
+
+                          {manualCards.map((card, index) => (
+                            <div key={card.id} className="mini-card">
+                              <span>Flashcard {index + 1}</span>
+                              <small>{card.content}</small>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </>
+              )}
 
             {creationGroup === "manual" && sourceMode === "highlight-pdf" && (
               <div className="preview-box">
