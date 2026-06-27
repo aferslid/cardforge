@@ -1553,3 +1553,38 @@ h4 {
   padding: 12px;
   margin-top: 8px;
 }
+
+.reader-view {
+  margin-top: 18px;
+  background: #f8fafc;
+  color: #111827;
+  border-radius: 22px;
+  padding: 24px;
+  line-height: 1.7;
+  font-size: 16px;
+  max-height: 75vh;
+  overflow-y: auto;
+  user-select: text;
+}
+
+.reader-view h1,
+.reader-view h2,
+.reader-view h3 {
+  color: #111827;
+  margin-top: 24px;
+}
+
+.reader-view p,
+.reader-view li {
+  color: #111827;
+}
+
+.reader-view img {
+  max-width: 100%;
+  border-radius: 14px;
+  margin: 14px 0;
+}
+
+.reader-view a {
+  color: #4f46e5;
+}

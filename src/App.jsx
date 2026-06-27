@@ -1759,12 +1759,22 @@ const canEditSelectedQuiz =
                         <p>Select text below to create flashcards.</p>
                       </div>
 
-                      <div
-                        className="reading-box"
-                        onMouseUp={handleTextSelection}
-                      >
-                        {(extractedPage.paragraphs || []).join("\n\n")}
-                      </div>
+                      {extractedPage.readerArticle?.html ? (
+                        <div
+                          className="reader-view"
+                          onMouseUp={handleTextSelection}
+                          dangerouslySetInnerHTML={{
+                            __html: extractedPage.readerArticle.html,
+                          }}
+                        />
+                      ) : (
+                        <div
+                          className="reading-box"
+                          onMouseUp={handleTextSelection}
+                        >
+                          {(extractedPage.paragraphs || []).join("\n\n")}
+                        </div>
+                      )}
 
                       {selectedHighlight && (
                         <div className="import-result">
